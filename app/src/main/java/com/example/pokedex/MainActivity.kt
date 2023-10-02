@@ -4,12 +4,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.pokedex.ui.theme.PokedexTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,13 +26,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    Greeting("GUYS")
+                    DemoScreen()
                 }
             }
         }
     }
 }
-
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
@@ -36,11 +40,22 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         modifier = modifier
     )
 }
-
-@Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    PokedexTheme {
-        Greeting("Android")
+fun DemoScreen() {
+    var isOn by remember {
+        mutableStateOf(false)
+    }
+    ControlButton(isOn) {
+        isOn = !isOn
+    }
+}
+@Composable
+fun ControlButton(isOn: Boolean, onClick: () -> Unit) {
+    Button(onClick = onClick) {
+        if (isOn) {
+            Text(text = "Off")
+        } else {
+            Text("On")
+        }
     }
 }
