@@ -1,4 +1,4 @@
-package com.example.myexperiment
+package com.example.pokedex
 
 
 import android.media.Image
