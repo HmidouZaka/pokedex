@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -23,6 +24,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.BasicTextField
@@ -51,6 +53,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -62,14 +65,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
 
-            SearchPage()
+         PokemonSearchPictures()
 
         }
     }
 }
 
 
-@Preview(showBackground = true)
+
 @Composable
 fun SearchPage() {
     var name by remember { mutableStateOf("Search your Pokemon") }
@@ -128,6 +131,20 @@ fun Pokemonlists(Pokemons:List<String>
     }
 
 }
+@Preview(showBackground = true)
+@Composable
+fun PokemonSearchPictures() {
+
+    Box(modifier = Modifier
+        .background(Color.Yellow, CircleShape)
+        .size(45.dp), contentAlignment = Alignment.Center
+    )
+    {
+        androidx.compose.foundation.Image(painter =
+             painterResource(id = R.drawable.img), contentDescription = "Pikachu", modifier =
+        Modifier.size(30.dp)
+        )
+    }}
 
 @Composable
 fun filterPage(){
