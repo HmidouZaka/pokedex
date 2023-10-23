@@ -15,6 +15,8 @@ import com.example.pokedex.ui.theme.PokedexTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Data().createPokemons(1,10)
+
         setContent {
             PokedexTheme {
                 // A surface container using the 'background' color from the theme
@@ -26,7 +28,9 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
     }
+
 }
 
 @Composable

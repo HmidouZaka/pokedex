@@ -66,4 +66,9 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation("org.json:json:20230227")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    implementation("androidx.concurrent:concurrent-futures:1.1.0")
+    implementation("androidx.concurrent:concurrent-futures-ktx:1.1.0")
+
 }
