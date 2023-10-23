@@ -67,14 +67,7 @@ import androidx.core.content.ContextCompat.startActivity
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_main)
 
-
-        //val button = findViewById<Button>(R.id.searchButton)
-        //button.setOnClickListener {
-          //  val intent = Intent()
-            //intent.setClass(this, SearchPage::class.java)
-       // }
         setContent {
 
             PokedexTheme {
@@ -90,89 +83,65 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-        @Composable
-        fun Greeting(name: String, modifier: Modifier = Modifier) {
-            Text(
-                text = "Hello $name!",
-                modifier = modifier
-            )
-        }
-        @Composable
-        fun SearchButton(isOn: Boolean, onClick: () -> Unit) {
-            val context = LocalContext.current
-            //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
-            val intent = Intent(context, SearchPage::class.java)
 
-            Button(onClick = onClick) {
+    @Composable
+    fun Greeting(name: String, modifier: Modifier = Modifier) {
+        Text(
+            text = "Hello $name!",
+            modifier = modifier
+        )
+    }
 
-                if (isOn) {
-                    startActivity(context, intent, null)
+    @Composable
+    fun SearchButton(isOn: Boolean, onClick: () -> Unit) {
+        val context = LocalContext.current
+        //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
+        val intent = Intent(context, SearchPage::class.java)
 
-                    //Text(text = "Off")
-                } else {
-                    Text("🔍")
-                }
+        Button(onClick = onClick) {
+
+            if (isOn) {
+                startActivity(context, intent, null)
+            } else {
+                Text("🔍")
             }
-        }
-
-        @Composable
-        fun FilterButton(isOn: Boolean, onClick: () -> Unit) {
-
-            Button(onClick = onClick) {
-                if (isOn) {
-                    Text(text = "Off")
-                } else {
-                    Text("On")
-                }
-            }
-        }
-        @Composable
-        fun DemoScreen() {
-            var isOn by remember {
-                mutableStateOf(false)
-            }
-
-            Box(Modifier.fillMaxSize(), Alignment.TopCenter) {
-                //Box(modifier = Modifier.size(40.dp), Alignment.TopCenter) {
-                SearchButton(isOn) {
-                    isOn = !isOn
-                }
-            }
-            Box(Modifier.fillMaxSize(), Alignment.TopEnd) {
-                FilterButton(isOn) {
-                    isOn = !isOn
-                }
-            }
-        }
-
-        @Composable
-        fun filterPage() {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-            ) {
-
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(38.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-
-                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "backArrow")
-
-                    Text(
-                        text = "Filter Options",
-                        fontSize = 20.sp
-                    )
-
-                }
-            }
-
-
         }
     }
 
+    @Composable
+    fun FilterButton(isOn: Boolean, onClick: () -> Unit) {
+        val context = LocalContext.current
+        //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
+        val intent = Intent(context, FilterPage::class.java)
+        Button(onClick = onClick) {
+            if (isOn) {
+                startActivity(context, intent, null)
+                Text(text = "Off")
+            } else {
+                Text("On")
+            }
+        }
+    }
+
+    @Composable
+    fun DemoScreen() {
+        var isOn by remember {
+            mutableStateOf(false)
+        }
+
+        Box(Modifier.fillMaxSize(), Alignment.TopCenter) {
+            //Box(modifier = Modifier.size(40.dp), Alignment.TopCenter) {
+            SearchButton(isOn) {
+                isOn = !isOn
+            }
+        }
+        Box(Modifier.fillMaxSize(), Alignment.TopEnd) {
+            FilterButton(isOn) {
+                isOn = !isOn
+            }
+        }
+    }
+
+}
 
 

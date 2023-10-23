@@ -29,6 +29,12 @@
             android:label="pokedex"
             android:theme="@style/Theme.Pokedex">
         </activity>
+        <activity
+            android:name=".FilterPage"
+            android:exported="true"
+            android:label="pokedex"
+            android:theme="@style/Theme.Pokedex">
+        </activity>
 
     </application>
 

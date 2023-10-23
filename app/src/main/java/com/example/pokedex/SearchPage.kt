@@ -1,5 +1,6 @@
 package com.example.pokedex
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -30,8 +31,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 
 class SearchPage : ComponentActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +64,9 @@ class SearchPage : ComponentActivity(){
                     .height(38.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "backArrow")
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "backArrow",modifier = Modifier.clickable {
+
+                })
 
                 BasicTextField(
                     value = name,
@@ -83,6 +88,12 @@ class SearchPage : ComponentActivity(){
             Pokemonlists(Pokemons = Pokemons)
         }
     }
+@Composable
+fun Backarrow() {
+    val context = LocalContext.current
+    val intent = Intent(context, MainActivity::class.java)
+    ContextCompat.startActivity(context, intent, null)
+}
 
     @Composable
     fun Pokemonlists(Pokemons:List<String>
