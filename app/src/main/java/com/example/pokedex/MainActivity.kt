@@ -1,8 +1,11 @@
 package com.example.pokedex
 
 
+import android.content.Intent
 import android.media.Image
+import android.net.Uri
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -33,6 +36,7 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.Face
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -51,111 +55,124 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.pokedex.ui.theme.PokedexTheme
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
+import androidx.core.content.ContextCompat.startActivity
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //setContentView(R.layout.activity_main)
+
+
+        //val button = findViewById<Button>(R.id.searchButton)
+        //button.setOnClickListener {
+          //  val intent = Intent()
+            //intent.setClass(this, SearchPage::class.java)
+       // }
         setContent {
 
-            SearchPage()
+            PokedexTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    Greeting("GUYS")
+                    DemoScreen()
 
+                }
+            }
         }
     }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun SearchPage() {
-    var name by remember { mutableStateOf("Search your Pokemon") }
-    var Pokemons: MutableList<String> = mutableListOf()
-
-    Pokemons.add(0, "PokemonNames")
-
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.LightGray, RoundedCornerShape(15.dp))
-                .height(38.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "backArrow")
-
-            BasicTextField(
-                value = name,
-                onValueChange = { text -> name = text },
-                modifier = Modifier.weight(1f)
+        @Composable
+        fun Greeting(name: String, modifier: Modifier = Modifier) {
+            Text(
+                text = "Hello $name!",
+                modifier = modifier
             )
+        }
+        @Composable
+        fun SearchButton(isOn: Boolean, onClick: () -> Unit) {
+            val context = LocalContext.current
+            //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
+            val intent = Intent(context, SearchPage::class.java)
 
-            if (name.isNotBlank()) {
-                Icon(
-                    imageVector = Icons.Default.Clear,
-                    contentDescription = "clear",
-                    modifier = Modifier.clickable {
-                        name = ""
-                    }
-                )
+            Button(onClick = onClick) {
+
+                if (isOn) {
+                    startActivity(context, intent, null)
+
+                    //Text(text = "Off")
+                } else {
+                    Text("🔍")
+                }
             }
         }
 
-        Pokemonlists(Pokemons = Pokemons)
-    }
-}
+        @Composable
+        fun FilterButton(isOn: Boolean, onClick: () -> Unit) {
 
-@Composable
-fun Pokemonlists(Pokemons:List<String>
-                 ,modifier: Modifier =Modifier){
-    LazyColumn {
-        items (Pokemons){ currentPokemon ->
-            Row() {
-                Icon(imageVector = Icons.Default.Face , contentDescription ="Pokemon pictures" )
-
-                Text(
-                    text = currentPokemon)
-                Divider()
+            Button(onClick = onClick) {
+                if (isOn) {
+                    Text(text = "Off")
+                } else {
+                    Text("On")
+                }
+            }
+        }
+        @Composable
+        fun DemoScreen() {
+            var isOn by remember {
+                mutableStateOf(false)
             }
 
+            Box(Modifier.fillMaxSize(), Alignment.TopCenter) {
+                //Box(modifier = Modifier.size(40.dp), Alignment.TopCenter) {
+                SearchButton(isOn) {
+                    isOn = !isOn
+                }
+            }
+            Box(Modifier.fillMaxSize(), Alignment.TopEnd) {
+                FilterButton(isOn) {
+                    isOn = !isOn
+                }
+            }
         }
 
-    }
-
-}
-
-@Composable
-fun filterPage(){
-    Column ( modifier = Modifier
-        .fillMaxSize()
-    ) {
+        @Composable
+        fun filterPage() {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
 
 
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(38.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
 
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "backArrow")
 
-        Row (modifier = Modifier
-            .fillMaxWidth()
-            .height(38.dp),
-            verticalAlignment = Alignment.CenterVertically){
+                    Text(
+                        text = "Filter Options",
+                        fontSize = 20.sp
+                    )
 
-            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "backArrow")
-
-            Text(text = "Filter Options",
-                fontSize =20.sp)
-
-
+                }
+            }
 
 
         }
     }
 
-
-
-}
 
 
