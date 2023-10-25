@@ -1,6 +1,4 @@
 package com.example.pokedex
-
-
 import android.content.Intent
 import android.media.Image
 import android.net.Uri

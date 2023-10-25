@@ -40,6 +40,9 @@ fun FilterPageContent() {
                 fontSize = 20.sp
             )
         }
+        TypeButton(
+            // Type Button tilføjes her senere.
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 //Vi laver lige 9 knapper via et for loop for generation, det er derfor names ik er med.
@@ -55,7 +58,16 @@ fun FilterPageContent() {
             }
         }
 
-        // Type Button tilføjes her senere.
+    }
+}
+
+@Composable
+fun TypeButton() {
+    Button(
+        onClick = {},
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Text(text = "Type")
     }
 }
 
@@ -70,6 +82,7 @@ fun GenerationButton(
         modifier = Modifier.padding(16.dp)
     ) {
         Text(text = "Generation $generation")
+        //Her er $generation det samme som et normal 1 som bare tæller op List.
     }
 }
 
@@ -96,4 +109,3 @@ fun GenerationNameList(generation: Int) {
         }
     }
 }
-
