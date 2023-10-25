@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -28,10 +30,14 @@ fun FilterPageContent() {
     var selectedGeneration by remember { mutableStateOf(1) }
 
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState(),true,null,true)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().height(38.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(38.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "backArrow")
