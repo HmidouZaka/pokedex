@@ -23,6 +23,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SearchPage"
+            android:exported="true"
+            android:label="pokedex"
+            android:theme="@style/Theme.Pokedex">
+        </activity>
+        <activity
+            android:name=".FilterPage"
+            android:exported="true"
+            android:label="pokedex"
+            android:theme="@style/Theme.Pokedex">
+        </activity>
+
     </application>
 
 </manifest>
