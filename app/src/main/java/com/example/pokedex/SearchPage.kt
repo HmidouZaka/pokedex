@@ -174,5 +174,4 @@ fun PokemonProducer(): List<Pokemon> {
     Pokemons.add(Pokemon("Pikachu", R.drawable.img))
     Pokemons.add(Pokemon("Pikachu", R.drawable.img))
     return Pokemons
-
 }
