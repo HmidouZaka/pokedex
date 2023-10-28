@@ -33,9 +33,10 @@ class FilterPage : ComponentActivity() {
 }
 
 
+
 @Composable
 fun FilterPageContent() {
-    var selectedGeneration by remember { mutableStateOf(1) }
+    var selectedGeneration by remember { mutableStateOf(-1) } // Initialize with -1
 
     // Selected name maintained globally
     var selectedName by remember { mutableStateOf<String?>(null) }
@@ -67,7 +68,13 @@ fun FilterPageContent() {
             GenerationButton(
                 generation = generation,
                 selectedGeneration = selectedGeneration,
-                onGenerationSelected = { selectedGeneration = it }
+                onGenerationSelected = {
+                    if (selectedGeneration == it) {
+                        selectedGeneration = -1  // Close the currently open generation
+                    } else {
+                        selectedGeneration = it
+                    }
+                }
             )
 
             if (selectedGeneration == generation) {
