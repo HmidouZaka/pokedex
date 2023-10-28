@@ -87,7 +87,6 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun FilterButton(isOn: Boolean, onClick: () -> Unit) {
         val context = LocalContext.current
-        //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
         val intent = Intent(context, FilterPage::class.java)
         Button(onClick = onClick) {
             if (isOn) {
@@ -101,24 +100,22 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun DemoScreen() {
-        var isOn by remember {
-            mutableStateOf(false)
-        }
+        var isSearchButtonOn by remember { mutableStateOf(false) }
+        var isFilterButtonOn by remember { mutableStateOf(false) }
 
         Box(Modifier.fillMaxSize(), Alignment.TopCenter) {
-            //Box(modifier = Modifier.size(40.dp), Alignment.TopCenter) {
-            SearchButton(isOn) {
-                isOn = !isOn
+            SearchButton(isSearchButtonOn) {
+                isSearchButtonOn = !isSearchButtonOn
             }
         }
         Box(Modifier.fillMaxSize(), Alignment.TopEnd) {
-            FilterButton(isOn) {
-                isOn = !isOn
+            FilterButton(isFilterButtonOn) {
+                isFilterButtonOn = !isFilterButtonOn
             }
         }
     }
-
 }
+
 
 @Preview(showBackground = true)
 @Composable
