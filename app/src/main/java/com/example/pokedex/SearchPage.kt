@@ -1,5 +1,6 @@
 package com.example.pokedex
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -36,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
@@ -56,25 +58,29 @@ class SearchPage : ComponentActivity(){
 fun SearchPageFun() {
     var name by remember { mutableStateOf("Search your Pokemon") }
     val Pokemons= PokemonProducer()
+    val context = LocalContext.current // Get the current context
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(243, 237, 247))
     ) {
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color(0xFFE0E0E0), RoundedCornerShape(15.dp))
-                .height(56.dp)
-
-            ,
+                .height(56.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "backArrow",modifier = Modifier.clickable {
+            Box(
+                modifier = Modifier.clickable {
 
-            })
+                    val intent = Intent(context, MainActivity::class.java)
+                    context.startActivity(intent)
+                }
+            ) {
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "backArrow")
+            }
 
             BasicTextField(
                 value = name,
@@ -93,14 +99,9 @@ fun SearchPageFun() {
             }
         }
 
-
         Pokemonlists(Pokemons)
     }
 }
-
-
-
-
 
 @Composable
 fun Pokemonlists(Pokemons:List<Pokemon>
