@@ -1,5 +1,6 @@
 package com.example.pokedex
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -33,13 +35,11 @@ class FilterPage : ComponentActivity() {
 }
 
 
-
 @Composable
 fun FilterPageContent() {
-    var selectedGeneration by remember { mutableStateOf(-1) } // Initialize with -1
-
-    // Selected name maintained globally
+    var selectedGeneration by remember { mutableStateOf(-1) }
     var selectedName by remember { mutableStateOf<String?>(null) }
+    val context = LocalContext.current // Get the current context
 
     Column(
         modifier = Modifier
@@ -49,32 +49,41 @@ fun FilterPageContent() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(38.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .height(38.dp)
         ) {
-            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "backArrow")
+            Box(
+                modifier = Modifier.clickable {
+                    // Redirect to MainActivity
+                    val intent = Intent(context, MainActivity::class.java)
+                    context.startActivity(intent)
+                }
+            ) {
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "backArrow")
+            }
+
             Text(
                 text = "Filter Options",
                 fontSize = 20.sp
             )
         }
-        TypeButton(
-            // Type Button tilføjes her senere.
-        )
+
+        TypeButton()
 
         Spacer(modifier = Modifier.height(16.dp))
-        // Vi laver lige 9 knapper via et for loop for generation, det er derfor names ik er med.
+
         for (generation in 1..9) {
             GenerationButton(
                 generation = generation,
                 selectedGeneration = selectedGeneration,
                 onGenerationSelected = {
                     if (selectedGeneration == it) {
-                        selectedGeneration = -1  // Close the currently open generation
+                        selectedGeneration = -1
                     } else {
                         selectedGeneration = it
                     }
-                }
+                },
+                isGenerationSelected = selectedGeneration == generation,
+                isNameInGeneration = isNameInGeneration(selectedName, generation)
             )
 
             if (selectedGeneration == generation) {
@@ -102,13 +111,16 @@ fun TypeButton() {
 fun GenerationButton(
     generation: Int,
     selectedGeneration: Int,
-    onGenerationSelected: (Int) -> Unit
+    onGenerationSelected: (Int) -> Unit,
+    isGenerationSelected: Boolean,
+    isNameInGeneration: Boolean
 ) {
     Button(
         onClick = { onGenerationSelected(generation) },
         modifier = Modifier.padding(16.dp)
     ) {
-        Text(text = "Generation $generation")
+        val buttonText = "Generation $generation" + if (isNameInGeneration) " ✅" else ""
+        Text(text = buttonText)
     }
 }
 
@@ -132,7 +144,7 @@ fun GenerationNameList(
     }
 
     Column(
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier.padding(16.dp)
     ) {
         namesForGeneration.forEach { name ->
             val isSelected = name == selectedName
@@ -142,7 +154,6 @@ fun GenerationNameList(
                 }
                 .padding(4.dp)
                 .background(if (isSelected) Color.Red else Color.Transparent)
-
             Text(
                 text = name,
                 modifier = textModifier,
@@ -150,6 +161,23 @@ fun GenerationNameList(
                 color = if (isSelected) Color.White else Color.Black
             )
         }
+    }
+}
+
+
+//Laver et memory state, der checker for gens og dens indhold af navn til at rykke checkmarket hen til den generation. RememberState, but fancy.
+fun isNameInGeneration(name: String?, generation: Int): Boolean {
+    return when (generation) {
+        1 -> listOf("Red", "Green", "Blue", "Yellow").contains(name)
+        2 -> listOf("Gold", "Silver", "Crystal").contains(name)
+        3 -> listOf("Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen").contains(name)
+        4 -> listOf("Diamond", "Pearl", "Platinum", "HeartGold", "SoulSilver").contains(name)
+        5 -> listOf("Black", "White", "Black 2", "White 2").contains(name)
+        6 -> listOf("X", "Y", "Omega Ruby", "Alpha Sapphire").contains(name)
+        7 -> listOf("Sun", "Moon", "Ultra Sun", "Ultra Moon").contains(name)
+        8 -> listOf("Sword", "Shield", "Brilliant Diamond", "Shining Pearl", "Legends: Arceus").contains(name)
+        9 -> listOf("Scarlet", "Violet").contains(name)
+        else -> false
     }
 }
 //Check Check Git works?
