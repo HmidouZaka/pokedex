@@ -4,7 +4,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import java.net.URL
-import kotlin.concurrent
 
 class Pokemon(globalID : Int)  {
     var name : String = "hej"

@@ -21,11 +21,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.pokedex.ui.theme.PokedexTheme
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Data().createPokemons(1,10)
+        fun createData() = runBlocking{
+            Data().createPokemons(1,10)
+
+
+        }
+        createData()
+
 
         setContent {
             PokedexTheme {
