@@ -33,13 +33,11 @@ class FilterPage : ComponentActivity() {
         }
     }
 }
-
-
 @Composable
 fun FilterPageContent() {
     var selectedGeneration by remember { mutableStateOf(-1) }
     var selectedName by remember { mutableStateOf<String?>(null) }
-    val context = LocalContext.current // Get the current context
+    val context = LocalContext.current // Get the current context(CLASS)
 
     Column(
         modifier = Modifier
@@ -99,11 +97,53 @@ fun FilterPageContent() {
 
 @Composable
 fun TypeButton() {
+    var isMenuVisible by remember { mutableStateOf(false) }
+
     Button(
-        onClick = {},
+        onClick = { isMenuVisible = true },
         modifier = Modifier.padding(16.dp)
     ) {
         Text(text = "Type")
+    }
+
+    if (isMenuVisible) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.background)
+                .padding(16.dp)
+        ) {
+            val types = listOf(
+                "Normal", "Fire", "Water", "Grass", "Flying", "Fighting",
+                "Poison", "Electric", "Ground", "Rock", "Psychic", "Ice",
+                "Bug", "Ghost", "Steel", "Dragon", "Dark", "Fairy"
+            )
+
+            val columnsPerRow = 6 //18 /3
+
+            val groupedTypes = types.chunked(columnsPerRow)
+
+            groupedTypes.forEach { columnTypes ->
+                Column {
+                    columnTypes.forEach { type ->
+                        TypeItemButton(type)
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun TypeItemButton(type: String) {
+    Button(
+        onClick = {
+            // Hver button click kan handles her senere, måske for loop er smart. Skal lige finde system.
+        },
+        modifier = Modifier
+            .padding(4.dp)
+    ) {
+        Text(text = type)
     }
 }
 
