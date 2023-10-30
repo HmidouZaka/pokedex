@@ -71,5 +71,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
     implementation("androidx.concurrent:concurrent-futures:1.1.0")
     implementation("androidx.concurrent:concurrent-futures-ktx:1.1.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("io.coil-kt:coil:2.4.0")
 
 }

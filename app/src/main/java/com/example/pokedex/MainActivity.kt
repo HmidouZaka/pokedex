@@ -38,18 +38,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import com.example.pokedex.ui.theme.PokedexTheme
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        fun createData() = runBlocking{
-            Data().createPokemons(1,10)
 
-
-        }
-        createData()
+        ApiViewModel().addPokemon(1,10000)
 
 
 

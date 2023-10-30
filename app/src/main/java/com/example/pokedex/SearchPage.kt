@@ -159,20 +159,21 @@ fun Pokemonlists(Pokemons:List<Pokemon>
 }
 @Composable
 fun PokemonProducer(): List<Pokemon> {
-    var Pokemons: MutableList<Pokemon> = mutableListOf()
-    Pokemons.add(Pokemon("Pikachu", R.drawable.img))
-    Pokemons.add(Pokemon("Charmander", R.drawable.img_1))
-    Pokemons.add(Pokemon("Bulbasaur", R.drawable.img_2))
-    Pokemons.add(Pokemon("Squirtle", R.drawable.img_3))
-    Pokemons.add(Pokemon("Jigglypuff", R.drawable.img_4))
-    Pokemons.add(Pokemon("Eevee", R.drawable.img_5))
-    Pokemons.add(Pokemon("Meowthe", R.drawable.img_6))
-    Pokemons.add(Pokemon("Snorlax", R.drawable.img_7))
-    Pokemons.add(Pokemon("Pikachu", R.drawable.img))
-    Pokemons.add(Pokemon("Pikachu", R.drawable.img))
-    Pokemons.add(Pokemon("Pikachu", R.drawable.img))
-    Pokemons.add(Pokemon("Pikachu", R.drawable.img))
-    Pokemons.add(Pokemon("Pikachu", R.drawable.img))
-    Pokemons.add(Pokemon("Pikachu", R.drawable.img))
-    return Pokemons
+    var pokemons: MutableList<Pokemon> = mutableListOf()
+
+    pokemons.add(Pokemon("Pikachu", R.drawable.img))
+    pokemons.add(Pokemon("Charmander", R.drawable.img_1))
+    pokemons.add(Pokemon("Bulbasaur", R.drawable.img_2))
+    pokemons.add(Pokemon("Squirtle", R.drawable.img_3))
+    pokemons.add(Pokemon("Jigglypuff", R.drawable.img_4))
+    pokemons.add(Pokemon("Eevee", R.drawable.img_5))
+    pokemons.add(Pokemon("Meowthe", R.drawable.img_6))
+    pokemons.add(Pokemon("Snorlax", R.drawable.img_7))
+    pokemons.add(Pokemon("Pikachu", R.drawable.img))
+    pokemons.add(Pokemon("Pikachu", R.drawable.img))
+    pokemons.add(Pokemon("Pikachu", R.drawable.img))
+    pokemons.add(Pokemon("Pikachu", R.drawable.img))
+    pokemons.add(Pokemon("Pikachu", R.drawable.img))
+    pokemons.add(Pokemon("Pikachu", R.drawable.img))
+    return pokemons
 }
