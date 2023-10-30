@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        ApiViewModel().addPokemon(1,10000)
+        ApiViewModel().addPokemon(0,10000)
 
 
 
