@@ -21,12 +21,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -52,10 +53,11 @@ class SearchPage : ComponentActivity(){
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun SearchPageFun() {
-    var name by remember { mutableStateOf("Search your Pokemon") }
+    var name by remember { mutableStateOf("") }
     val Pokemons= PokemonProducer()
     val context = LocalContext.current // Get the current context
 
@@ -81,11 +83,14 @@ fun SearchPageFun() {
                 Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "backArrow")
             }
 
-            BasicTextField(
+            TextField (
                 value = name,
                 onValueChange = { text -> name = text },
-                modifier = Modifier.weight(1f)
+                 modifier = Modifier.weight(1f),
+
+               placeholder = {Text (text = "Search your Pokemon") }
             )
+
 
             if (name.isNotBlank()) {
                 Icon(
