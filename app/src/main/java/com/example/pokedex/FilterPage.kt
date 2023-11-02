@@ -4,25 +4,23 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+
 
 class FilterPage : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,10 +92,32 @@ fun FilterPageContent() {
         }
     }
 }
-
+@Composable
+fun TypeShowcase(): List<Type> {
+    var typeIcon: MutableList<Type> = mutableListOf()
+    typeIcon.add(Type(R.drawable.img))
+    typeIcon.add(Type( R.drawable.img_1))
+    typeIcon.add(Type(R.drawable.img_2))
+    typeIcon.add(Type(R.drawable.img_3))
+    typeIcon.add(Type(R.drawable.img_4))
+    typeIcon.add(Type(R.drawable.img_5))
+    typeIcon.add(Type( R.drawable.img_6))
+    typeIcon.add(Type( R.drawable.img_7))
+    typeIcon.add(Type(R.drawable.img))
+    typeIcon.add(Type(R.drawable.img))
+    typeIcon.add(Type(R.drawable.img))
+    typeIcon.add(Type(R.drawable.img))
+    typeIcon.add(Type(R.drawable.img))
+    typeIcon.add(Type(R.drawable.img))
+    typeIcon.add(Type(R.drawable.img))
+    typeIcon.add(Type(R.drawable.img))
+    typeIcon.add(Type(R.drawable.img))
+    typeIcon.add(Type(R.drawable.img))
+    return typeIcon
+}
 @Composable
 fun TypeButton() {
-    var isMenuVisible by remember { mutableStateOf(false) }
+    var isMenuVisible by remember { mutableStateOf(true) }
 
     Button(
         onClick = { isMenuVisible = true },
@@ -114,19 +134,30 @@ fun TypeButton() {
                 .padding(16.dp)
         ) {
             val types = listOf(
-                "Normal", "Fire", "Water", "Grass", "Flying", "Fighting",
-                "Poison", "Electric", "Ground", "Rock", "Psychic", "Ice",
-                "Bug", "Ghost", "Steel", "Dragon", "Dark", "Fairy"
+                R.drawable.bug,R.drawable.dark,R.drawable.dragon,R.drawable.electric,R.drawable.fairy,
+                R.drawable.fighting,R.drawable.fire,R.drawable.flying,R.drawable.ghost,R.drawable.grass,
+                R.drawable.ground,R.drawable.ice,R.drawable.normal,R.drawable.poison,R.drawable.psychic,R.drawable.rock,
+                R.drawable.steel,R.drawable.water
             )
 
-            val columnsPerRow = 6 //18 /3
 
+            val columnsPerRow = 6 //18types/3 per row = 6
+
+
+            //val groupedTypePic = TypeShowcase().chunked(columnsPerRow)
             val groupedTypes = types.chunked(columnsPerRow)
 
             groupedTypes.forEach { columnTypes ->
                 Column {
+                    val typeIterator = types.asSequence().iterator()
                     columnTypes.forEach { type ->
-                        TypeItemButton(type)
+                        val resourceId = typeIterator.next()
+                        Image(painter = painterResource(id = resourceId),
+                            contentDescription = type.toString(),
+                             modifier = Modifier
+                                .size(128.dp))
+
+                     //  TypeItemButton(type)
                     }
                 }
             }
@@ -134,8 +165,12 @@ fun TypeButton() {
     }
 }
 
+private fun <E> MutableList<E>.add(element: Type) {
+
+}
+
 @Composable
-fun TypeItemButton(type: String) {
+fun TypeItemButton(type: Type) {
     Button(
         onClick = {
             // Hver button click kan handles her senere, måske for loop er smart. Skal lige finde system.
@@ -143,7 +178,7 @@ fun TypeItemButton(type: String) {
         modifier = Modifier
             .padding(4.dp)
     ) {
-        Text(text = type)
+
     }
 }
 

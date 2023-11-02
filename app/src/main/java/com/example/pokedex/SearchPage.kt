@@ -123,6 +123,7 @@ fun Pokemonlists(Pokemons:List<Pokemon>
                         width = 1.dp,
                         color = Color(0, 0, 0, 20),
                         shape = CircleShape
+
                     )
                     .size(64.dp)
 
