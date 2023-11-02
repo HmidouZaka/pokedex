@@ -93,29 +93,6 @@ fun FilterPageContent() {
     }
 }
 @Composable
-fun TypeShowcase(): List<Type> {
-    var typeIcon: MutableList<Type> = mutableListOf()
-    typeIcon.add(Type(R.drawable.img))
-    typeIcon.add(Type( R.drawable.img_1))
-    typeIcon.add(Type(R.drawable.img_2))
-    typeIcon.add(Type(R.drawable.img_3))
-    typeIcon.add(Type(R.drawable.img_4))
-    typeIcon.add(Type(R.drawable.img_5))
-    typeIcon.add(Type( R.drawable.img_6))
-    typeIcon.add(Type( R.drawable.img_7))
-    typeIcon.add(Type(R.drawable.img))
-    typeIcon.add(Type(R.drawable.img))
-    typeIcon.add(Type(R.drawable.img))
-    typeIcon.add(Type(R.drawable.img))
-    typeIcon.add(Type(R.drawable.img))
-    typeIcon.add(Type(R.drawable.img))
-    typeIcon.add(Type(R.drawable.img))
-    typeIcon.add(Type(R.drawable.img))
-    typeIcon.add(Type(R.drawable.img))
-    typeIcon.add(Type(R.drawable.img))
-    return typeIcon
-}
-@Composable
 fun TypeButton() {
     var isMenuVisible by remember { mutableStateOf(true) }
 
@@ -127,37 +104,27 @@ fun TypeButton() {
     }
 
     if (isMenuVisible) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.background)
-                .padding(16.dp)
-        ) {
-            val types = listOf(
-                R.drawable.bug,R.drawable.dark,R.drawable.dragon,R.drawable.electric,R.drawable.fairy,
-                R.drawable.fighting,R.drawable.fire,R.drawable.flying,R.drawable.ghost,R.drawable.grass,
-                R.drawable.ground,R.drawable.ice,R.drawable.normal,R.drawable.poison,R.drawable.psychic,R.drawable.rock,
-                R.drawable.steel,R.drawable.water
-            )
+        val types = listOf(
+            R.drawable.bug, R.drawable.dark, R.drawable.dragon, R.drawable.electric, R.drawable.fairy,
+            R.drawable.fighting, R.drawable.fire, R.drawable.flying, R.drawable.ghost, R.drawable.grass,
+            R.drawable.ground, R.drawable.ice, R.drawable.normal, R.drawable.poison, R.drawable.psychic, R.drawable.rock,
+            R.drawable.steel, R.drawable.water
+        )
 
+        val columnsPerRow = 3 //18/6 = 3
+        val groupedTypes = types.chunked(columnsPerRow)
 
-            val columnsPerRow = 6 //18types/3 per row = 6
-
-
-            //val groupedTypePic = TypeShowcase().chunked(columnsPerRow)
-            val groupedTypes = types.chunked(columnsPerRow)
-
-            groupedTypes.forEach { columnTypes ->
-                Column {
-                    val typeIterator = types.asSequence().iterator()
-                    columnTypes.forEach { type ->
-                        val resourceId = typeIterator.next()
-                        Image(painter = painterResource(id = resourceId),
+        Column {
+            for (columnTypes in groupedTypes) {
+                Row {
+                    for (type in columnTypes) {
+                        Image(
+                            painter = painterResource(id = type),
                             contentDescription = type.toString(),
-                             modifier = Modifier
-                                .size(128.dp))
-
-                     //  TypeItemButton(type)
+                            modifier = Modifier
+                                .size(120.dp)
+                        )
+                        Spacer(modifier = Modifier.width(10.dp))
                     }
                 }
             }
