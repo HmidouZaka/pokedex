@@ -35,12 +35,11 @@ class FilterPage : ComponentActivity() {
 fun FilterPageContent() {
     var selectedGeneration by remember { mutableStateOf(-1) }
     var selectedName by remember { mutableStateOf<String?>(null) }
-    val context = LocalContext.current // Get the current context(CLASS)
-
+    val context = LocalContext.current // Get the current context(CLASS FOLKS)
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState(), true, null, true)
+            .verticalScroll(rememberScrollState(), true)
     ) {
         Row(
             modifier = Modifier
@@ -110,7 +109,6 @@ fun TypeButton() {
             R.drawable.ground, R.drawable.ice, R.drawable.normal, R.drawable.poison, R.drawable.psychic, R.drawable.rock,
             R.drawable.steel, R.drawable.water
         )
-
         val columnsPerRow = 3 //18/6 = 3
         val groupedTypes = types.chunked(columnsPerRow)
 
