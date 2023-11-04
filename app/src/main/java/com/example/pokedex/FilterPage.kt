@@ -2,6 +2,7 @@ package com.example.pokedex
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -14,7 +15,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -109,19 +112,14 @@ fun TypeButton() {
             R.drawable.ground, R.drawable.ice, R.drawable.normal, R.drawable.poison, R.drawable.psychic, R.drawable.rock,
             R.drawable.steel, R.drawable.water
         )
-        val columnsPerRow = 3 //18/6 = 3
+        val columnsPerRow = 3 // 18/6 = 3
         val groupedTypes = types.chunked(columnsPerRow)
 
         Column {
             for (columnTypes in groupedTypes) {
                 Row {
                     for (type in columnTypes) {
-                        Image(
-                            painter = painterResource(id = type),
-                            contentDescription = type.toString(),
-                            modifier = Modifier
-                                .size(120.dp)
-                        )
+                        TypeItemButton(type)
                         Spacer(modifier = Modifier.width(10.dp))
                     }
                 }
@@ -130,20 +128,27 @@ fun TypeButton() {
     }
 }
 
-private fun <E> MutableList<E>.add(element: Type) {
-
-}
-
 @Composable
-fun TypeItemButton(type: Type) {
-    Button(
-        onClick = {
-            // Hver button click kan handles her senere, måske for loop er smart. Skal lige finde system.
-        },
+fun TypeItemButton(type: Int) {
+    val isButtonClicked = remember { mutableStateOf(true) }
+//Dette design har brug for noget testing med Actionlogs, da det er ikke lige særlig brugervenligt endnu.
+    Box(
         modifier = Modifier
-            .padding(4.dp)
+            .size(140.dp, 31.dp)
+//Size of Type-pics is 140 x 31
+            .clickable {
+                isButtonClicked.value = !isButtonClicked.value
+                Log.d("ButtonClicked fra Type", "Button med type $type er trykket ")
+                //Log ID er 21309686[00] til 21309686[18] fra logcat. Seems to work.
+               //Prøv nyt box design som clickable, da buttons laver for store designButtons, ud fra fill med 140.dp som width for billede.
+            }
     ) {
-
+        Image(
+            painter = painterResource(id = type),
+            contentDescription = type.toString(),
+            modifier = Modifier.fillMaxSize()
+                .padding(3.5.dp)
+        )
     }
 }
 
@@ -159,6 +164,7 @@ fun GenerationButton(
         onClick = { onGenerationSelected(generation) },
         modifier = Modifier.padding(16.dp)
     ) {
+        //Maybe my memory is like a goldfish, but this memory works!
         val buttonText = "Generation $generation" + if (isNameInGeneration) " ✅" else ""
         Text(text = buttonText)
     }
