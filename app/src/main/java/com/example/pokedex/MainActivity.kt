@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -36,6 +38,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key.Companion.Ro
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
@@ -155,37 +158,32 @@ fun homePagefun() {
         PokemonList()
 
     }}
-
 @Composable
 fun PokemonList() {
-    val Pokemons= PokemonProducer()
-        LazyColumn(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            items(Pokemons) { pokemonsOnRow ->
-                Row(
-                   modifier= Modifier
-                       .width(178.dp)
-                       .height(213.97.dp)
-                       .background(
-                           color = Color(0xFFE0E0E0),
-                           shape = RoundedCornerShape(size = 10.dp)
-                       ),
+    val Pokemons = PokemonProducer()
+
+    LazyColumn(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Pokemons.chunked(2) { chunkedPokemons ->
+            item {
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    pokemonBox(modifier = Modifier)
-
+                    items(chunkedPokemons) { pokemon ->
+                        pokemonBox(modifier = Modifier)
                     }
                 }
             }
         }
-
-
+    }
+}
 @Composable
 fun PokemonBoxPreview() {
     pokemonBox(
         modifier = Modifier
-            .width(178.dp)
+            .width(17.dp)
             .height(213.97.dp)
             .background(color = Color(0xFFE0E0E0), shape = RoundedCornerShape(size = 10.dp))
     )
@@ -195,6 +193,16 @@ fun PokemonBoxPreview() {
 fun pokemonBox(modifier: Modifier) {
     Box(
         modifier = modifier
+            .width(195.dp)
+            .height(178.dp)
+            .background(color = Color(0xFFE0E0E0), shape = RoundedCornerShape(size = 10.dp))
+            .border(
+                width = 1.dp,
+                shape = RoundedCornerShape(10.dp)
+                ,
+                color = Color.Black
+            )
+            .padding(1.dp)
 
     ) {
          val rudaFontFamily = FontFamily(
