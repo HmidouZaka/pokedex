@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,9 +13,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -32,7 +38,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -52,7 +62,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("GUYS")
+
                     DemoScreen()
 
                 }
@@ -60,13 +70,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @Composable
-    fun Greeting(name: String, modifier: Modifier = Modifier) {
-        Text(
-            text = "Hello $name!",
-            modifier = modifier
-        )
-    }
 
     @Composable
     fun SearchButton(isOn: Boolean, onClick: () -> Unit) {
@@ -117,10 +120,9 @@ class MainActivity : ComponentActivity() {
 }
 
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun homePagefun() {
-
 
     Column(
         modifier = Modifier
@@ -150,8 +152,107 @@ fun homePagefun() {
 
 
         }
+        PokemonList()
 
     }}
 
+@Composable
+fun PokemonList() {
+    val Pokemons= PokemonProducer()
+        LazyColumn(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            items(Pokemons) { pokemonsOnRow ->
+                Row(
+                   modifier= Modifier
+                       .width(178.dp)
+                       .height(213.97.dp)
+                       .background(
+                           color = Color(0xFFE0E0E0),
+                           shape = RoundedCornerShape(size = 10.dp)
+                       ),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    pokemonBox(modifier = Modifier)
+
+                    }
+                }
+            }
+        }
 
 
+@Composable
+fun PokemonBoxPreview() {
+    pokemonBox(
+        modifier = Modifier
+            .width(178.dp)
+            .height(213.97.dp)
+            .background(color = Color(0xFFE0E0E0), shape = RoundedCornerShape(size = 10.dp))
+    )
+}
+
+@Composable
+fun pokemonBox(modifier: Modifier) {
+    Box(
+        modifier = modifier
+
+    ) {
+         val rudaFontFamily = FontFamily(
+            Font(R.font.ruda_black, FontWeight.W300),
+            Font(R.font.ruda_regular, FontWeight.W400),
+            Font(R.font.ruda_medium, FontWeight.W500),
+            Font(R.font.ruda_bold, FontWeight.W600)
+        )
+
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Text(
+                text = "#0025",
+                fontSize = 12.sp,
+                fontFamily = rudaFontFamily,
+                fontWeight = FontWeight.W400,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+
+            Row(
+                modifier = Modifier
+                    .padding(start = 7.dp, end = 7.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "Pokemon",
+                    fontSize =22.sp,
+                    fontFamily = rudaFontFamily,
+                    fontWeight = FontWeight.W400,
+                    textAlign = TextAlign.Start)
+                Icon(
+                    imageVector = Icons.Default.Face,
+                    contentDescription = "Icon",
+                    modifier=Modifier.size(25.dp)
+
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxSize()
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.img_1),
+                    contentDescription = "Test",
+                    modifier = Modifier.fillMaxSize()
+                )
+                Icon(
+                    imageVector = Icons.Default.Face,
+                    contentDescription = "Icon",
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .size(22.dp)
+                )
+            }
+        }
+    }
+}
