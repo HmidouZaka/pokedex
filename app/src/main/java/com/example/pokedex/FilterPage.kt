@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -19,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -97,6 +99,7 @@ fun FilterPageContent() {
 @Composable
 fun TypeButton() {
     var isMenuVisible by remember { mutableStateOf(true) }
+    var selectedTypes by remember { mutableStateOf(emptyList<Int>()) }
 
     Button(
         onClick = { isMenuVisible = true },
@@ -119,34 +122,48 @@ fun TypeButton() {
             for (columnTypes in groupedTypes) {
                 Row {
                     for (type in columnTypes) {
-                        TypeItemButton(type)
+                        //Parameters for fun TypeItem Button to be passed along, when selecting a maximum amount of buttons.
+                        TypeItemButton(type, selectedTypes) { selected ->
+                            if (selectedTypes.size < 2 || selected.contains(type)) {
+                                selectedTypes = selected
+                            }
+                        }
                         Spacer(modifier = Modifier.width(10.dp))
                     }
                 }
+            }
+            if (selectedTypes.size > 2) {
+                Text(text = "Select 2 types max bro!", color = Color.Red)
+                selectedTypes -= selectedTypes
             }
         }
     }
 }
 
 @Composable
-fun TypeItemButton(type: Int) {
-    val isButtonClicked = remember { mutableStateOf(true) }
-//Dette design har brug for noget testing med Actionlogs, da det er ikke lige særlig brugervenligt endnu.
+fun TypeItemButton(type: Int, selectedTypes: List<Int>, onTypeSelected: (List<Int>) -> Unit) {
+    val isButtonClicked = selectedTypes.contains(type)
+
     Box(
         modifier = Modifier
             .size(140.dp, 31.dp)
-//Size of Type-pics is 140 x 31
+            .border(
+                width = 2.dp,
+                color = if (isButtonClicked) Color.Green else Color.Gray,
+                shape = RectangleShape
+            )
             .clickable {
-                isButtonClicked.value = !isButtonClicked.value
-                Log.d("ButtonClicked fra Type", "Button med type $type er trykket ")
-                //Log ID er 21309686[00] til 21309686[18] fra logcat. Seems to work.
-               //Prøv nyt box design som clickable, da buttons laver for store designButtons, ud fra fill med 140.dp som width for billede.
+                onTypeSelected(
+                    if (isButtonClicked) selectedTypes - type
+                    else selectedTypes + type
+                )
             }
     ) {
         Image(
             painter = painterResource(id = type),
             contentDescription = type.toString(),
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .padding(3.5.dp)
         )
     }
