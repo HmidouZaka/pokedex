@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -65,201 +66,156 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
-                    DemoScreen()
-
+                    homePagefun()
                 }
             }
         }
     }
 
-
+    @Preview
     @Composable
-    fun SearchButton(isOn: Boolean, onClick: () -> Unit) {
+    fun homePagefun() {
         val context = LocalContext.current
-        //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
-        val intent = Intent(context, SearchPage::class.java)
-
-        Button(onClick = onClick) {
-
-            if (isOn) {
-                startActivity(context, intent, null)
-            } else {
-                Text("🔍")
-            }
-        }
-    }
-
-    @Composable
-    fun FilterButton(isOn: Boolean, onClick: () -> Unit) {
-        val context = LocalContext.current
-        val intent = Intent(context, FilterPage::class.java)
-        Button(onClick = onClick) {
-            if (isOn) {
-                startActivity(context, intent, null)
-                Text(text = "Off")
-            } else {
-                Text("On")
-            }
-        }
-    }
-
-    @Composable
-    fun DemoScreen() {
-        var isSearchButtonOn by remember { mutableStateOf(false) }
-        var isFilterButtonOn by remember { mutableStateOf(false) }
-
-        Box(Modifier.fillMaxSize(), Alignment.TopCenter) {
-            SearchButton(isSearchButtonOn) {
-                isSearchButtonOn = !isSearchButtonOn
-            }
-        }
-        Box(Modifier.fillMaxSize(), Alignment.TopEnd) {
-            FilterButton(isFilterButtonOn) {
-                isFilterButtonOn = !isFilterButtonOn
-            }
-        }
-    }
-}
-
-
-@Preview
-@Composable
-fun homePagefun() {
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-    ) {
-
-        Row(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(96.dp)
-            ,
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxSize()
+                .background(Color.White)
         ) {
-            Spacer(modifier = Modifier.width(71.dp))
-            Text(
-                text = "Pokédex",
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold)
-            Spacer(modifier = Modifier.width(81.dp))
-            Image(painter = painterResource(id = R.drawable.img_filter),
-                contentDescription = "filter", modifier = Modifier.size(24.dp)
-            )
-            Spacer(modifier = Modifier.width(34.dp))
-            Icon(imageVector = Icons.Default.Search, contentDescription = "search")
 
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(96.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Spacer(modifier = Modifier.width(71.dp))
+                Text(
+                    text = "Pokédex",
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.width(81.dp))
+                Image(painter = painterResource(id = R.drawable.img_filter),
+                    contentDescription = "filter", modifier = Modifier.size(24.dp).clickable {
+                        val intent = Intent(context, FilterPage::class.java)
+                        context.startActivity(intent)
+                    })
 
+                Spacer(modifier = Modifier.width(34.dp))
 
+                Icon(imageVector = Icons.Default.Search, contentDescription = "search",
+                    modifier = Modifier.clickable {
+                        val intent = Intent(context, SearchPage::class.java)
+                        context.startActivity(intent)
+
+                    })
+            }
+            PokemonList()
         }
-        PokemonList()
+    }
 
-    }}
-@Composable
-fun PokemonList() {
-    val Pokemons = PokemonProducer()
+    @Composable
+    fun PokemonList() {
+        val Pokemons = PokemonProducer()
 
-    LazyColumn(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Pokemons.chunked(2) { chunkedPokemons ->
-            item {
-                LazyRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    items(chunkedPokemons) { pokemon ->
-                        pokemonBox(modifier = Modifier)
+        LazyColumn(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Pokemons.chunked(2) { chunkedPokemons ->
+                item {
+                    LazyRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        items(chunkedPokemons) { pokemon ->
+                            pokemonBox(modifier = Modifier)
+                        }
                     }
                 }
             }
         }
     }
-}
-@Composable
-fun PokemonBoxPreview() {
-    pokemonBox(
-        modifier = Modifier
-            .width(17.dp)
-            .height(213.97.dp)
-            .background(color = Color(0xFFE0E0E0), shape = RoundedCornerShape(size = 10.dp))
-    )
-}
 
-@Composable
-fun pokemonBox(modifier: Modifier) {
-    Box(
-        modifier = modifier
-            .width(195.dp)
-            .height(178.dp)
-            .background(color = Color(0xFFE0E0E0), shape = RoundedCornerShape(size = 10.dp))
-            .border(
-                width = 1.dp,
-                shape = RoundedCornerShape(10.dp)
-                ,
-                color = Color.Black
-            )
-            .padding(1.dp)
-
-    ) {
-         val rudaFontFamily = FontFamily(
-            Font(R.font.ruda_black, FontWeight.W300),
-            Font(R.font.ruda_regular, FontWeight.W400),
-            Font(R.font.ruda_medium, FontWeight.W500),
-            Font(R.font.ruda_bold, FontWeight.W600)
+    @Composable
+    fun PokemonBoxPreview() {
+        pokemonBox(
+            modifier = Modifier
+                .width(17.dp)
+                .height(213.97.dp)
+                .background(color = Color(0xFFE0E0E0), shape = RoundedCornerShape(size = 10.dp))
         )
+    }
+    @Composable
+    fun pokemonBox(modifier: Modifier) {
+        Box(
+            modifier = modifier
+                .width(195.dp)
+                .height(178.dp)
+                .background(color = Color(0xFFE0E0E0), shape = RoundedCornerShape(size = 10.dp))
+                .border(
+                    width = 1.dp,
+                    shape = RoundedCornerShape(10.dp),
+                    color = Color.Black
+                )
+                .padding(1.dp)
 
-        Column(
-            modifier = Modifier.fillMaxSize()
         ) {
-            Text(
-                text = "#0025",
-                fontSize = 12.sp,
-                fontFamily = rudaFontFamily,
-                fontWeight = FontWeight.W400,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
+            val rudaFontFamily = FontFamily(
+                Font(R.font.ruda_black, FontWeight.W300),
+                Font(R.font.ruda_regular, FontWeight.W400),
+                Font(R.font.ruda_medium, FontWeight.W500),
+                Font(R.font.ruda_bold, FontWeight.W600)
             )
 
-            Row(
-                modifier = Modifier
-                    .padding(start = 7.dp, end = 7.dp)
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+            Column(
+                modifier = Modifier.fillMaxSize()
             ) {
-                Text(text = "Pokemon",
-                    fontSize =22.sp,
+                Text(
+                    text = "#0025",
+                    fontSize = 12.sp,
                     fontFamily = rudaFontFamily,
                     fontWeight = FontWeight.W400,
-                    textAlign = TextAlign.Start)
-                Icon(
-                    imageVector = Icons.Default.Face,
-                    contentDescription = "Icon",
-                    modifier=Modifier.size(25.dp)
-
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
-            }
 
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxSize()
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.img_1),
-                    contentDescription = "Test",
-                    modifier = Modifier.fillMaxSize()
-                )
-                Icon(
-                    imageVector = Icons.Default.Face,
-                    contentDescription = "Icon",
+                Row(
                     modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .size(22.dp)
-                )
+                        .padding(start = 7.dp, end = 7.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "Pokemon",
+                        fontSize = 22.sp,
+                        fontFamily = rudaFontFamily,
+                        fontWeight = FontWeight.W400,
+                        textAlign = TextAlign.Start
+                    )
+                    Icon(
+                        imageVector = Icons.Default.Face,
+                        contentDescription = "Icon",
+                        modifier = Modifier.size(25.dp)
+                    )
+                }
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxSize()
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.img_1),
+                        contentDescription = "Test",
+                        modifier = Modifier.fillMaxSize()
+                    )
+                    Icon(
+                        imageVector = Icons.Default.Face,
+                        contentDescription = "Icon",
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .size(22.dp)
+                    )
+                }
             }
         }
     }
