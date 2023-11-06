@@ -6,7 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.pokedex.favorites_screen.Favorites
-import com.example.pokedex.homePagefun
+
+import com.example.pokedex.homePage
 
 
 @Composable
@@ -17,7 +18,7 @@ fun MainNavHost(navController: NavHostController, modifier: Modifier = Modifier)
         modifier = modifier
     ) {
         composable(Route.POKEDEX.path) {
-            //homePagefun()
+            homePage()
         }
         composable(Route.FAVORITES.path) {
            Favorites()

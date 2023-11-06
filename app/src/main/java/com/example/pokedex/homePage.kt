@@ -51,9 +51,22 @@ import com.example.pokedex.navigation.MainNavHost
 import com.example.pokedex.navigation.Route
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
 fun homePagefun() {
+    val navController = rememberNavController()
+    Scaffold(
+        bottomBar = { BottomBar(navController) }
+    ) { paddingValues ->
+        MainNavHost(
+            navController = navController,
+            modifier = Modifier.padding(paddingValues)
+        )
+    }
+}
+
+@Preview
+@Composable
+fun homePage() {
 
     val context = LocalContext.current
 
@@ -94,15 +107,6 @@ fun homePagefun() {
                 })
         }
         //PokemonList()
-        val navController = rememberNavController()
-        Scaffold(
-            bottomBar = { BottomBar(navController) }
-        ) { paddingValues ->
-            MainNavHost(
-                navController = navController,
-                modifier = Modifier.padding(paddingValues)
-            )
-        }
     }
 }
 
@@ -243,19 +247,10 @@ fun BottomBar(navController: NavController) {
                 label = { Text(text = tab.title) },
                 selected = isTabSelected,
                 onClick = {
-                    navController.navigate(route = tab.rootRoute.path) {
-                        // Pop up to the start destination of the graph to
-                        // avoid building up a large stack of destinations
-                        // on the back stack as users select items
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
-                        }
-                        // Avoid multiple copies of the same destination when
-                        // reselecting the same item
-                        launchSingleTop = true
-                        // Restore state when reselecting a previously selected item
-                        restoreState = true
-                    }
+                    navController.navigate(route = tab.rootRoute.path)
+
+
+
                 }
             )
         }

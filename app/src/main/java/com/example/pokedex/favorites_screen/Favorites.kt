@@ -52,7 +52,7 @@ fun Favorites() {
         ) {
             Spacer(modifier = Modifier.width(71.dp))
             Text(
-                text = "Pokédex",
+                text = "faves",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold
             )
