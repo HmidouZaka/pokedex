@@ -25,6 +25,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -87,7 +88,7 @@ class MainActivity : ComponentActivity() {
         )
     }
 
-    @Composable
+    /*@Composable
     fun SearchButton(isOn: Boolean, onClick: () -> Unit) {
         val context = LocalContext.current
         //val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
@@ -103,7 +104,9 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @Composable
+     */
+
+    /*@Composable
     fun FilterButton(isOn: Boolean, onClick: () -> Unit) {
         val context = LocalContext.current
         val intent = Intent(context, FilterPage::class.java)
@@ -116,6 +119,10 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+     */
+
+
 /*
     @Composable
     fun DemoScreen() {
@@ -129,111 +136,3 @@ class MainActivity : ComponentActivity() {
     }
 
  */
-
-
-
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
-@Composable
-fun homePagefun() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(96.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Spacer(modifier = Modifier.width(71.dp))
-            Text(
-                text = "Pokédex",
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.width(81.dp))
-            Image(
-                painter = painterResource(id = R.drawable.img_filter),
-                contentDescription = "filter", modifier = Modifier.size(24.dp)
-            )
-            Spacer(modifier = Modifier.width(34.dp))
-            Icon(imageVector = Icons.Default.Search, contentDescription = "search")
-        }
-
-    }
-    val navController = rememberNavController()
-    Scaffold(
-        bottomBar = { BottomBar(navController) }
-    ) { paddingValues ->
-        MainNavHost(
-            navController = navController,
-            modifier = Modifier.padding(paddingValues)
-        )
-    }
-}
-
-
-
-@Composable
-fun BottomBar(navController: NavController) {
-    NavigationBar {
-        val tabs = listOf(
-            Tab(
-                title = "Pokedex",
-                icon = Icons.Default.List,
-                rootRoute = Route.POKEDEX
-            ),
-            Tab(
-                title = "Favorites",
-                icon = Icons.Default.Favorite,
-                rootRoute = Route.FAVORITES
-            )
-        )
-
-        val isFavoritesTabSelected = navController.currentBackStack
-            .collectAsState()
-            .value
-            .any { it.destination.route == Route.FAVORITES.path }
-
-        tabs.forEach { tab ->
-            val isTabSelected = if (tab.rootRoute == Route.POKEDEX) {
-                !isFavoritesTabSelected
-            } else {
-                isFavoritesTabSelected
-            }
-
-            NavigationBarItem(
-                icon = {
-                    Icon(imageVector = tab.icon, contentDescription = null)
-                },
-                label = { Text(text = tab.title) },
-                selected = isTabSelected,
-                onClick = {
-                    navController.navigate(route = tab.rootRoute.path) {
-                        // Pop up to the start destination of the graph to
-                        // avoid building up a large stack of destinations
-                        // on the back stack as users select items
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
-                        }
-                        // Avoid multiple copies of the same destination when
-                        // reselecting the same item
-                        launchSingleTop = true
-                        // Restore state when reselecting a previously selected item
-                        restoreState = true
-                    }
-                }
-            )
-        }
-    }
-}
-private data class Tab(
-    val title: String,
-    val icon: ImageVector,
-    val rootRoute: Route
-)
-
-
