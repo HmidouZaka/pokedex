@@ -21,12 +21,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -52,10 +53,11 @@ class SearchPage : ComponentActivity(){
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun SearchPageFun() {
-    var name by remember { mutableStateOf("Search your Pokemon") }
+    var name by remember { mutableStateOf("") }
     val Pokemons= PokemonProducer()
     val context = LocalContext.current // Get the current context
 
@@ -71,21 +73,22 @@ fun SearchPageFun() {
                 .height(56.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
-                modifier = Modifier.clickable {
 
-                    val intent = Intent(context, MainActivity::class.java)
-                    context.startActivity(intent)
-                }
-            ) {
-                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "backArrow")
-            }
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "backArrow",
+                  modifier =  Modifier.clickable {
+                        val intent = Intent(context, MainActivity::class.java)
+                        context.startActivity(intent)
+                    })
 
-            BasicTextField(
+
+            TextField (
                 value = name,
                 onValueChange = { text -> name = text },
-                modifier = Modifier.weight(1f)
+                 modifier = Modifier.weight(1f),
+
+               placeholder = {Text (text = "Search your Pokemon") }
             )
+
 
             if (name.isNotBlank()) {
                 Icon(
@@ -128,6 +131,7 @@ fun Pokemonlists(Pokemons:List<Pokemon>
                         width = 1.dp,
                         color = Color(0, 0, 0, 20),
                         shape = CircleShape
+
                     )
                     .size(64.dp)
 
@@ -171,7 +175,7 @@ fun PokemonProducer(): List<Pokemon> {
     Pokemons.add(Pokemon("Squirtle", R.drawable.img_3))
     Pokemons.add(Pokemon("Jigglypuff", R.drawable.img_4))
     Pokemons.add(Pokemon("Eevee", R.drawable.img_5))
-    Pokemons.add(Pokemon("Meowthe", R.drawable.img_6))
+    Pokemons.add(Pokemon("Meowth", R.drawable.img_6))
     Pokemons.add(Pokemon("Snorlax", R.drawable.img_7))
     Pokemons.add(Pokemon("Pikachu", R.drawable.img))
     Pokemons.add(Pokemon("Pikachu", R.drawable.img))
