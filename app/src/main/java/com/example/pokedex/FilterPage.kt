@@ -115,26 +115,24 @@ fun TypeButton() {
             R.drawable.ground, R.drawable.ice, R.drawable.normal, R.drawable.poison, R.drawable.psychic, R.drawable.rock,
             R.drawable.steel, R.drawable.water
         )
-        val columnsPerRow = 3 // 18/6 = 3
+        val columnsPerRow = 3
         val groupedTypes = types.chunked(columnsPerRow)
 
         Column {
             for (columnTypes in groupedTypes) {
                 Row {
                     for (type in columnTypes) {
-                        //Parameters for fun TypeItem Button to be passed along, when selecting a maximum amount of buttons.
                         TypeItemButton(type, selectedTypes) { selected ->
-                            if (selectedTypes.size < 2 || selected.contains(type)) {
-                                selectedTypes = selected
-                            }
+                            selectedTypes = selected
                         }
                         Spacer(modifier = Modifier.width(10.dp))
                     }
                 }
             }
+
+            //Error message.
             if (selectedTypes.size > 2) {
                 Text(text = "Select 2 types max bro!", color = Color.Red)
-                selectedTypes -= selectedTypes
             }
         }
     }
@@ -152,10 +150,17 @@ fun TypeItemButton(type: Int, selectedTypes: List<Int>, onTypeSelected: (List<In
                 color = if (isButtonClicked) Color.Green else Color.Gray,
                 shape = RectangleShape
             )
+            //Only 2 can be selected.
             .clickable {
                 onTypeSelected(
                     if (isButtonClicked) selectedTypes - type
-                    else selectedTypes + type
+                    else {
+                        if (selectedTypes.size < 2) {
+                            selectedTypes + type
+                        } else {
+                            selectedTypes
+                        }
+                    }
                 )
             }
     ) {
@@ -168,6 +173,7 @@ fun TypeItemButton(type: Int, selectedTypes: List<Int>, onTypeSelected: (List<In
         )
     }
 }
+
 
 @Composable
 fun GenerationButton(
