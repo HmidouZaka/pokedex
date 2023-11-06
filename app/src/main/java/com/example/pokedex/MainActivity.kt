@@ -25,47 +25,37 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.Key.Companion.Ro
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat.startActivity
 import com.example.pokedex.ui.theme.PokedexTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
 
             PokedexTheme {
-                // A surface container using the 'background' color from the theme
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+
                     homePagefun()
                 }
             }
@@ -75,7 +65,9 @@ class MainActivity : ComponentActivity() {
     @Preview
     @Composable
     fun homePagefun() {
+
         val context = LocalContext.current
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -96,10 +88,12 @@ class MainActivity : ComponentActivity() {
                 )
                 Spacer(modifier = Modifier.width(81.dp))
                 Image(painter = painterResource(id = R.drawable.img_filter),
-                    contentDescription = "filter", modifier = Modifier.size(24.dp).clickable {
-                        val intent = Intent(context, FilterPage::class.java)
-                        context.startActivity(intent)
-                    })
+                    contentDescription = "filter", modifier = Modifier
+                        .size(24.dp)
+                        .clickable {
+                            val intent = Intent(context, FilterPage::class.java)
+                            context.startActivity(intent)
+                        })
 
                 Spacer(modifier = Modifier.width(34.dp))
 
@@ -117,7 +111,6 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun PokemonList() {
         val Pokemons = PokemonProducer()
-
         LazyColumn(
             modifier = Modifier.fillMaxSize()
         ) {
@@ -128,7 +121,16 @@ class MainActivity : ComponentActivity() {
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         items(chunkedPokemons) { pokemon ->
-                            pokemonBox(modifier = Modifier)
+                            pokemonBox(modifier = Modifier
+                                .width(205.dp)
+                                .height(178.dp)
+                                .background(color = Color(0xFFE0E0E0), shape = RoundedCornerShape(size = 10.dp))
+                                .border(
+                                    width = 1.dp,
+                                    shape = RoundedCornerShape(10.dp),
+                                    color = Color.Black
+                                )
+                                .padding(2.dp))
                         }
                     }
                 }
@@ -137,35 +139,10 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun PokemonBoxPreview() {
-        pokemonBox(
-            modifier = Modifier
-                .width(17.dp)
-                .height(213.97.dp)
-                .background(color = Color(0xFFE0E0E0), shape = RoundedCornerShape(size = 10.dp))
-        )
-    }
-    @Composable
     fun pokemonBox(modifier: Modifier) {
         Box(
             modifier = modifier
-                .width(195.dp)
-                .height(178.dp)
-                .background(color = Color(0xFFE0E0E0), shape = RoundedCornerShape(size = 10.dp))
-                .border(
-                    width = 1.dp,
-                    shape = RoundedCornerShape(10.dp),
-                    color = Color.Black
-                )
-                .padding(1.dp)
-
         ) {
-            val rudaFontFamily = FontFamily(
-                Font(R.font.ruda_black, FontWeight.W300),
-                Font(R.font.ruda_regular, FontWeight.W400),
-                Font(R.font.ruda_medium, FontWeight.W500),
-                Font(R.font.ruda_bold, FontWeight.W600)
-            )
 
             Column(
                 modifier = Modifier.fillMaxSize()
@@ -173,7 +150,7 @@ class MainActivity : ComponentActivity() {
                 Text(
                     text = "#0025",
                     fontSize = 12.sp,
-                    fontFamily = rudaFontFamily,
+                    fontFamily = Font.rudaFontFamily,
                     fontWeight = FontWeight.W400,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
@@ -188,7 +165,7 @@ class MainActivity : ComponentActivity() {
                     Text(
                         text = "Pokemon",
                         fontSize = 22.sp,
-                        fontFamily = rudaFontFamily,
+                        fontFamily = Font.rudaFontFamily,
                         fontWeight = FontWeight.W400,
                         textAlign = TextAlign.Start
                     )
@@ -198,25 +175,35 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.size(25.dp)
                     )
                 }
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxSize()
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.img_1),
-                        contentDescription = "Test",
-                        modifier = Modifier.fillMaxSize()
-                    )
-                    Icon(
-                        imageVector = Icons.Default.Face,
-                        contentDescription = "Icon",
-                        modifier = Modifier
-                            .align(Alignment.BottomEnd)
-                            .size(22.dp)
-                    )
-                }
+                //
+                val picturemodifier = Modifier
+                    .weight(1f)
+                    .fillMaxSize()
+                    .weight(1f)
+                    .fillMaxSize()
+                pokemonPictureAndLogo(modifier = picturemodifier)
             }
+
         }
     }
+}
+@Composable
+fun pokemonPictureAndLogo(modifier: Modifier){
+    Box(
+       modifier=modifier
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.img_1),
+            contentDescription = "Test",
+            modifier = Modifier.fillMaxSize()
+        )
+        Icon(
+            imageVector = Icons.Default.Face,
+            contentDescription = "Icon",
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .size(22.dp)
+        )
+    }
+
 }
