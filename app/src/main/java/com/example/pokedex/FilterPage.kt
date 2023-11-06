@@ -2,13 +2,15 @@ package com.example.pokedex
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -16,13 +18,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+
 
 class FilterPage : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,18 +36,15 @@ class FilterPage : ComponentActivity() {
         }
     }
 }
-
-
 @Composable
 fun FilterPageContent() {
     var selectedGeneration by remember { mutableStateOf(-1) }
     var selectedName by remember { mutableStateOf<String?>(null) }
-    val context = LocalContext.current // Get the current context
-
+    val context = LocalContext.current // Get the current context(CLASS FOLKS)
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState(), true, null, true)
+            .verticalScroll(rememberScrollState(), true)
     ) {
         Row(
             modifier = Modifier
@@ -96,16 +96,84 @@ fun FilterPageContent() {
         }
     }
 }
-
 @Composable
 fun TypeButton() {
+    var isMenuVisible by remember { mutableStateOf(true) }
+    var selectedTypes by remember { mutableStateOf(emptyList<Int>()) }
+
     Button(
-        onClick = {},
+        onClick = { isMenuVisible = true },
         modifier = Modifier.padding(16.dp)
     ) {
         Text(text = "Type")
     }
+
+    if (isMenuVisible) {
+        val types = listOf(
+            R.drawable.bug, R.drawable.dark, R.drawable.dragon, R.drawable.electric, R.drawable.fairy,
+            R.drawable.fighting, R.drawable.fire, R.drawable.flying, R.drawable.ghost, R.drawable.grass,
+            R.drawable.ground, R.drawable.ice, R.drawable.normal, R.drawable.poison, R.drawable.psychic, R.drawable.rock,
+            R.drawable.steel, R.drawable.water
+        )
+        val columnsPerRow = 3
+        val groupedTypes = types.chunked(columnsPerRow)
+
+        Column {
+            for (columnTypes in groupedTypes) {
+                Row {
+                    for (type in columnTypes) {
+                        TypeItemButton(type, selectedTypes) { selected ->
+                            selectedTypes = selected
+                        }
+                        Spacer(modifier = Modifier.width(10.dp))
+                    }
+                }
+            }
+
+            //Error message.
+            if (selectedTypes.size > 2) {
+                Text(text = "Select 2 types max bro!", color = Color.Red)
+            }
+        }
+    }
 }
+
+@Composable
+fun TypeItemButton(type: Int, selectedTypes: List<Int>, onTypeSelected: (List<Int>) -> Unit) {
+    val isButtonClicked = selectedTypes.contains(type)
+
+    Box(
+        modifier = Modifier
+            .size(140.dp, 31.dp)
+            .border(
+                width = 2.dp,
+                color = if (isButtonClicked) Color.Green else Color.Gray,
+                shape = RectangleShape
+            )
+            //Only 2 can be selected.
+            .clickable {
+                onTypeSelected(
+                    if (isButtonClicked) selectedTypes - type
+                    else {
+                        if (selectedTypes.size < 2) {
+                            selectedTypes + type
+                        } else {
+                            selectedTypes
+                        }
+                    }
+                )
+            }
+    ) {
+        Image(
+            painter = painterResource(id = type),
+            contentDescription = type.toString(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(3.5.dp)
+        )
+    }
+}
+
 
 @Composable
 fun GenerationButton(
@@ -119,6 +187,7 @@ fun GenerationButton(
         onClick = { onGenerationSelected(generation) },
         modifier = Modifier.padding(16.dp)
     ) {
+        //Maybe my memory is like a goldfish, but this memory works!
         val buttonText = "Generation $generation" + if (isNameInGeneration) " ✅" else ""
         Text(text = buttonText)
     }
