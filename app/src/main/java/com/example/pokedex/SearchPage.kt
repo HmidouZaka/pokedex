@@ -73,15 +73,13 @@ fun SearchPageFun() {
                 .height(56.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
-                modifier = Modifier.clickable {
 
-                    val intent = Intent(context, MainActivity::class.java)
-                    context.startActivity(intent)
-                }
-            ) {
-                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "backArrow")
-            }
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "backArrow",
+                  modifier =  Modifier.clickable {
+                        val intent = Intent(context, MainActivity::class.java)
+                        context.startActivity(intent)
+                    })
+
 
             TextField (
                 value = name,
@@ -176,7 +174,7 @@ fun PokemonProducer(): List<Pokemon> {
     Pokemons.add(Pokemon("Squirtle", R.drawable.img_3))
     Pokemons.add(Pokemon("Jigglypuff", R.drawable.img_4))
     Pokemons.add(Pokemon("Eevee", R.drawable.img_5))
-    Pokemons.add(Pokemon("Meowthe", R.drawable.img_6))
+    Pokemons.add(Pokemon("Meowth", R.drawable.img_6))
     Pokemons.add(Pokemon("Snorlax", R.drawable.img_7))
     Pokemons.add(Pokemon("Pikachu", R.drawable.img))
     Pokemons.add(Pokemon("Pikachu", R.drawable.img))
