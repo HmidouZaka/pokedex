@@ -111,8 +111,8 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
-    /*@Composable
+/*
+    @Composable
     fun DemoScreen() {
         var isSearchButtonOn by remember { mutableStateOf(false) }
         var isFilterButtonOn by remember { mutableStateOf(false) }
@@ -128,16 +128,16 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
 
-     */
+ */
+
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun homePagefun() {
-
     Column(
         modifier = Modifier
             .fillMaxSize()
