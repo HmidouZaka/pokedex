@@ -114,7 +114,9 @@ fun PokemonList() {
 }
 
 @Composable
+
 fun pokemonBox(modifier: Modifier) {
+
     Box(
         modifier = modifier
     ) {
@@ -164,6 +166,7 @@ fun pokemonBox(modifier: Modifier) {
 
 @Composable
 fun pokemonPictureAndLogo(modifier: Modifier){
+    val context = LocalContext.current
     Box(
         modifier=modifier
     ) {
@@ -171,6 +174,10 @@ fun pokemonPictureAndLogo(modifier: Modifier){
             painter = painterResource(id = R.drawable.img_1),
             contentDescription = "Test",
             modifier = Modifier.fillMaxSize()
+                .clickable {
+                    val intent = Intent(context, DescriptionsPage::class.java)
+                    context.startActivity(intent)
+                }
         )
         Icon(
             imageVector = Icons.Default.Face,
@@ -178,6 +185,7 @@ fun pokemonPictureAndLogo(modifier: Modifier){
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .size(22.dp)
+
         )
     }
 
