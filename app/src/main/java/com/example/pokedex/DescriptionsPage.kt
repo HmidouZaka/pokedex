@@ -106,6 +106,22 @@ class DescriptionsPage : ComponentActivity(){
                     onGenderSelected = { selectedGender = it }
                 )
             }
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .height(100.dp)
+                    .background(Color.LightGray)
+                    .clip(CircleShape)
+
+            ) {
+                Text(
+                    text = "Hello, gais it's ya boi anomaly.!",
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .align(Alignment.CenterStart),
+                    color = Color.White                )
+            }
         }
     }
 
@@ -124,7 +140,6 @@ class DescriptionsPage : ComponentActivity(){
                 .border(
                     width = 2.dp,
                     color = if (selectedGender != Gender.NONE) Color.White else Color.Transparent,
-                    shape = CircleShape
                 )
         )
     }
