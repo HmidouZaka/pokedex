@@ -95,13 +95,13 @@ class DescriptionsPage : ComponentActivity(){
                 horizontalArrangement = Arrangement.Start
             ) {
                 GenderIcon(
-                    imageResId = R.drawable.img_filter,
+                    imageResId = R.drawable.male,
                     selectedGender = Gender.MALE,
                     onGenderSelected = { selectedGender = it }
                 )
                 Spacer(modifier = Modifier.width(16.dp))  //Security measure so they don't fatfinger the wrong button.
                 GenderIcon(
-                    imageResId = R.drawable.img_filter,
+                    imageResId = R.drawable.female,
                     selectedGender = Gender.FEMALE,
                     onGenderSelected = { selectedGender = it }
                 )
