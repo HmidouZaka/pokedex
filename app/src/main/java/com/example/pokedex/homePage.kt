@@ -128,7 +128,10 @@ fun PokemonList() {
                         pokemonBox(modifier = Modifier
                             .width(205.dp)
                             .height(178.dp)
-                            .background(color = Color(0xFFE0E0E0), shape = RoundedCornerShape(size = 10.dp))
+                            .background(
+                                color = Color(0xFFE0E0E0),
+                                shape = RoundedCornerShape(size = 10.dp)
+                            )
                             .border(
                                 width = 1.dp,
                                 shape = RoundedCornerShape(10.dp),
@@ -201,9 +204,10 @@ fun pokemonPictureAndLogo(modifier: Modifier){
             contentDescription = "Test",
             modifier = Modifier.fillMaxSize()
         )
-        Icon(
-            imageVector = Icons.Default.Face,
-            contentDescription = "Icon",
+        Image(
+            painter = painterResource(id = R.drawable.pokeball_notfave),
+            //imageVector = Icons.Default.Favorite,
+            contentDescription = "pokeball",
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .size(22.dp)
