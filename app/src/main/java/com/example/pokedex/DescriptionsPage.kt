@@ -148,25 +148,30 @@ class DescriptionsPage : ComponentActivity(){
                     selectedGender = Gender.MALE,
                     onGenderSelected = { selectedGender = it }
                 )
-                Spacer(modifier = Modifier.width(16.dp))
+
                 GenderIcon(
                     imageResId = R.drawable.female,
                     selectedGender = Gender.FEMALE,
                     onGenderSelected = { selectedGender = it }
                 )
+                Spacer(modifier = Modifier.weight(1f))
 
                 var isFavorite by remember { mutableStateOf(false) }
-                Icon(
-                    painter = painterResource(id = R.drawable.pokeball_bw),
-                    contentDescription = "Favorite option",
-                    tint = if (isFavorite) Color.Red else Color.Black,
+                Box(
                     modifier = Modifier
-
                         .padding(5.dp)
-                        .size(25.dp)
-                        .clickable { isFavorite = !isFavorite }
-                        .requiredSize(36.dp, 36.dp)
-                )
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.pokeball_bw),
+                        contentDescription = "Favorite option",
+                        tint = if (isFavorite) Color.Red else Color.Black,
+                        modifier = Modifier
+                            .size(25.dp)
+                            .clickable { isFavorite = !isFavorite }
+                            .requiredSize(36.dp, 36.dp)
+                            .align(Alignment.BottomEnd)
+                    )
+                }
             }
             Divider(
                 color = Color.Black,
