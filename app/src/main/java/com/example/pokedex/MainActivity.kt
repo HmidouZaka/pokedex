@@ -58,7 +58,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.pokedex.navigation.MainNavHost
 import com.example.pokedex.navigation.Route
 import com.example.pokedex.ui.theme.PokedexTheme
-
+import com.example.pokedex.navigation.homePagefun
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

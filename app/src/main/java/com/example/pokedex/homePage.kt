@@ -50,19 +50,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.pokedex.navigation.MainNavHost
 import com.example.pokedex.navigation.Route
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun homePagefun() {
-    val navController = rememberNavController()
-    Scaffold(
-        bottomBar = { BottomBar(navController) }
-    ) { paddingValues ->
-        MainNavHost(
-            navController = navController,
-            modifier = Modifier.padding(paddingValues)
-        )
-    }
-}
 
 @Preview
 @Composable
