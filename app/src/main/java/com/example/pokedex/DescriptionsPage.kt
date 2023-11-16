@@ -157,6 +157,7 @@ class DescriptionsPage : ComponentActivity(){
                 Spacer(modifier = Modifier.weight(1f))
 
                 var isFavorite by remember { mutableStateOf(false) }
+                ///Hello fix fra aisha
                 Box(
                     modifier = Modifier
                         .padding(5.dp)
