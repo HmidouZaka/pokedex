@@ -1,8 +1,7 @@
-package com.example.pokedex
+package com.example.pokedex.UserInterface
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -16,15 +15,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.pokedex.MainActivity
+import com.example.pokedex.R
 
 
 class FilterPage : ComponentActivity() {
@@ -110,10 +109,24 @@ fun TypeButton() {
 
     if (isMenuVisible) {
         val types = listOf(
-            R.drawable.bug, R.drawable.dark, R.drawable.dragon, R.drawable.electric, R.drawable.fairy,
-            R.drawable.fighting, R.drawable.fire, R.drawable.flying, R.drawable.ghost, R.drawable.grass,
-            R.drawable.ground, R.drawable.ice, R.drawable.normal, R.drawable.poison, R.drawable.psychic, R.drawable.rock,
-            R.drawable.steel, R.drawable.water
+            R.drawable.bug,
+            R.drawable.dark,
+            R.drawable.dragon,
+            R.drawable.electric,
+            R.drawable.fairy,
+            R.drawable.fighting,
+            R.drawable.fire,
+            R.drawable.flying,
+            R.drawable.ghost,
+            R.drawable.grass,
+            R.drawable.ground,
+            R.drawable.ice,
+            R.drawable.normal,
+            R.drawable.poison,
+            R.drawable.psychic,
+            R.drawable.rock,
+            R.drawable.steel,
+            R.drawable.water
         )
         val columnsPerRow = 3
         val groupedTypes = types.chunked(columnsPerRow)

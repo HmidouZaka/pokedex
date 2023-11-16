@@ -1,4 +1,4 @@
-package com.example.pokedex
+package com.example.pokedex.UserInterface
 
 import android.content.Intent
 import androidx.compose.foundation.Image
@@ -25,11 +25,9 @@ import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -46,8 +44,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.rememberNavController
-import com.example.pokedex.navigation.MainNavHost
+import com.example.pokedex.Font
+import com.example.pokedex.R
 import com.example.pokedex.navigation.Route
 
 
@@ -139,8 +137,10 @@ fun pokemonBox(modifier: Modifier) {
     Box(
         modifier = modifier
             .clickable {
-                val intent = Intent(context, DescriptionsPage::class.java)
-                context.startActivity(intent)
+              //  val intent = Intent(context, DescriptionsPage::class.java)
+               // context.startActivity(intent)
+
+
             }
     ) {
 

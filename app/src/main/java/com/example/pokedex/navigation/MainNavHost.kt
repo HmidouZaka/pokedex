@@ -8,9 +8,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.pokedex.BottomBar
-import com.example.pokedex.favorites_screen.Favorites
-import com.example.pokedex.homePage
+import com.example.pokedex.UserInterface.BottomBar
+import com.example.pokedex.UserInterface.Favorites
+import com.example.pokedex.UserInterface.ShowcasePage
+import com.example.pokedex.UserInterface.homePage
 
 
 @Composable
@@ -25,6 +26,10 @@ fun MainNavHost(navController: NavHostController, modifier: Modifier = Modifier)
         }
         composable(Route.FAVORITES.path) {
            Favorites()
+        }
+        composable(Route.Pokemon.path) {
+            ShowcasePage()
+
         }
     }
 }

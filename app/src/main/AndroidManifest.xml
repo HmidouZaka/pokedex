@@ -25,20 +25,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SearchPage"
+            android:name=".UserInterface.SearchPage"
             android:exported="true"
             android:label="pokedex"
             android:theme="@style/Theme.Pokedex">
         </activity>
         <activity
-            android:name=".FilterPage"
+            android:name=".UserInterface.FilterPage"
             android:exported="true"
             android:label="pokedex"
             android:theme="@style/Theme.Pokedex">
         </activity>
 
         <activity
-            android:name=".DescriptionsPage"
+            android:name=".UserInterface.DescriptionsPage"
             android:exported="true"
             android:label="pokedex"
             android:theme="@style/Theme.Pokedex">
