@@ -1,5 +1,4 @@
 package com.example.pokedex.navigation
-
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -11,7 +10,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.pokedex.BottomBar
 import com.example.pokedex.favorites_screen.Favorites
-
 import com.example.pokedex.homePage
 
 
@@ -33,7 +31,7 @@ fun MainNavHost(navController: NavHostController, modifier: Modifier = Modifier)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun homePagefun() {
+fun navStart() {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomBar(navController) }
