@@ -2,6 +2,8 @@ package com.example.pokedex
 
 
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -28,6 +30,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -48,6 +51,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -61,6 +65,7 @@ class DescriptionsPage : ComponentActivity(){
     }
     @Composable
     fun ShowcasePage() {
+        val context = LocalContext.current
         var selectedGender by remember { mutableStateOf(Gender.NONE) }
 
         val maleColor = Color.Blue
@@ -71,23 +76,66 @@ class DescriptionsPage : ComponentActivity(){
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Image(
-                painter = painterResource(id = R.drawable.img_1),
-                contentDescription = null,
+            // Top Baren folkens!
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(300.dp)
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                IconButton(onClick = { val intent = Intent(context, MainActivity::class.java)
+                    context.startActivity(intent) }) {
+                    Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                }
+                Spacer(modifier = Modifier.width(14.dp))
+                //Texten skal retrieve en string fra PokeAPI'en.
+
+                val pokemonName = "Charmander";
+                Text(
+                    text = pokemonName,
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Divider(
+                color = Color.Black,
+                thickness = 1.5.dp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
                     .background(
                         when (selectedGender) {
                             Gender.MALE -> maleColor
                             Gender.FEMALE -> femaleColor
-                            else -> Color.Transparent //Or grey depends on logic.
+                            else -> Color.Transparent // Or grey depends on logic.
                         }
-                    ),
-                contentScale = ContentScale.Crop
-            )
+                    )
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.img_1),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(300.dp),
+                    contentScale = ContentScale.Crop
+                )
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                        .align(Alignment.BottomStart)
+                ) {
+                 //RYK GENDERICONS og Favorite ICON HER SÅ DET BLIVER IN PICTURE som FIGMA
+                    ////////////////////////////////////////////////////
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                }
+            }
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -99,7 +147,7 @@ class DescriptionsPage : ComponentActivity(){
                     selectedGender = Gender.MALE,
                     onGenderSelected = { selectedGender = it }
                 )
-                Spacer(modifier = Modifier.width(16.dp))  //Security measure so they don't fatfinger the wrong button.
+                Spacer(modifier = Modifier.width(16.dp))
                 GenderIcon(
                     imageResId = R.drawable.female,
                     selectedGender = Gender.FEMALE,
@@ -113,18 +161,17 @@ class DescriptionsPage : ComponentActivity(){
                     .height(100.dp)
                     .background(Color.LightGray)
                     .clip(CircleShape)
-
             ) {
                 Text(
                     text = "Hello, gais it's ya boi anomaly.!",
                     modifier = Modifier
                         .padding(16.dp)
                         .align(Alignment.CenterStart),
-                    color = Color.White                )
+                    color = Color.White
+                )
             }
         }
     }
-
     @Composable
     fun GenderIcon(
         imageResId: Int,
