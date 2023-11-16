@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -152,6 +153,19 @@ class DescriptionsPage : ComponentActivity(){
                     imageResId = R.drawable.female,
                     selectedGender = Gender.FEMALE,
                     onGenderSelected = { selectedGender = it }
+                )
+
+                var isFavorite by remember { mutableStateOf(false) }
+                Icon(
+                    painter = painterResource(id = R.drawable.pokeball_bw),
+                    contentDescription = "Favorite option",
+                    tint = if (isFavorite) Color.Red else Color.Black,
+                    modifier = Modifier
+
+                        .padding(5.dp)
+                        .size(25.dp)
+                        .clickable { isFavorite = !isFavorite }
+                        .requiredSize(36.dp, 36.dp)
                 )
             }
             Divider(
