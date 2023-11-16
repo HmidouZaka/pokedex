@@ -154,6 +154,13 @@ class DescriptionsPage : ComponentActivity(){
                     onGenderSelected = { selectedGender = it }
                 )
             }
+            Divider(
+                color = Color.Black,
+                thickness = 1.5.dp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            )
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
