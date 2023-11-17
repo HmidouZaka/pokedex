@@ -44,14 +44,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
 import com.example.pokedex.Font
 import com.example.pokedex.R
 import com.example.pokedex.navigation.Route
 
 
-@Preview
+
 @Composable
-fun homePage() {
+fun homePage(navController: NavHostController) {
 
     val context = LocalContext.current
 
@@ -91,14 +92,14 @@ fun homePage() {
 
                 })
         }
-        PokemonList()
+        PokemonList(navController)
     }
 }
 
 
 
 @Composable
-fun PokemonList() {
+fun PokemonList(navController: NavHostController) {
     val Pokemons = PokemonProducer()
     LazyColumn(
         modifier = Modifier.fillMaxSize()
@@ -122,7 +123,9 @@ fun PokemonList() {
                                 shape = RoundedCornerShape(10.dp),
                                 color = Color.Black
                             )
-                            .padding(2.dp))
+                            .padding(2.dp),
+                            navController)
+
                     }
                 }
             }
@@ -132,13 +135,16 @@ fun PokemonList() {
 
 @Composable
 
-fun pokemonBox(modifier: Modifier) {
+fun pokemonBox(modifier: Modifier,
+               navController: NavHostController) {
     val context = LocalContext.current
     Box(
         modifier = modifier
             .clickable {
-              //  val intent = Intent(context, DescriptionsPage::class.java)
-               // context.startActivity(intent)
+                val name="/lizard"
+
+              navController.navigate(Route.Pokemon.path
+              +name)
 
 
             }

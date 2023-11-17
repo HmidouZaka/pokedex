@@ -55,16 +55,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-class DescriptionsPage : ComponentActivity(){
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+import androidx.navigation.NavHostController
 
-        setContent {
-            ShowcasePage()
-        }
-    }
-    @Composable
-    fun ShowcasePage() {
+@Composable
+    fun ShowcasePage(   navController: NavHostController, poke: String) {
         val context = LocalContext.current
         var selectedGender by remember { mutableStateOf(Gender.NONE) }
 
@@ -83,14 +77,16 @@ class DescriptionsPage : ComponentActivity(){
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.Start
             ) {
-                IconButton(onClick = { val intent = Intent(context, MainActivity::class.java)
-                    context.startActivity(intent) }) {
+                IconButton(onClick = {
+                    val intent = Intent(context, MainActivity::class.java)
+                    context.startActivity(intent)
+                }) {
                     Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                 }
                 Spacer(modifier = Modifier.width(14.dp))
                 //Texten skal retrieve en string fra PokeAPI'en.
 
-                val pokemonName = "Charmander";
+                val pokemonName = poke;
                 Text(
                     text = pokemonName,
                     fontSize = 30.sp,
@@ -130,7 +126,7 @@ class DescriptionsPage : ComponentActivity(){
                         .padding(16.dp)
                         .align(Alignment.BottomStart)
                 ) {
-                 //RYK GENDERICONS og Favorite ICON HER SÅ DET BLIVER IN PICTURE som FIGMA
+                    //RYK GENDERICONS og Favorite ICON HER SÅ DET BLIVER IN PICTURE som FIGMA
                     ////////////////////////////////////////////////////
                     Spacer(modifier = Modifier.width(16.dp))
 
@@ -190,14 +186,16 @@ class DescriptionsPage : ComponentActivity(){
                 )
         )
     }
-}
+
 
 enum class Gender {
     MALE, FEMALE, NONE // None because some rare exist. Maybe gray should be added.
 }
 
-@Composable
+/*@Composable
 @Preview(showBackground = true)
 fun PokemonShowcasePreview() {
-    DescriptionsPage()
+    ShowcasePage()
 }
+
+ */

@@ -5,12 +5,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.pokedex.ShowcasePage
 import com.example.pokedex.UserInterface.BottomBar
 import com.example.pokedex.UserInterface.Favorites
-import com.example.pokedex.UserInterface.ShowcasePage
 import com.example.pokedex.UserInterface.homePage
 
 
@@ -22,17 +24,31 @@ fun MainNavHost(navController: NavHostController, modifier: Modifier = Modifier)
         modifier = modifier
     ) {
         composable(Route.POKEDEX.path) {
-            homePage()
+           homePage(navController)
         }
         composable(Route.FAVORITES.path) {
            Favorites()
         }
-        composable(Route.Pokemon.path) {
-            ShowcasePage()
+        composable(
+            route = Route.Pokemon.path+"/{name}"
+        ,arguments =
+        listOf(
+            navArgument("name"){
+                type = NavType.StringType
+                defaultValue = "Pikachu"
+                nullable = true
+            }
+        )
+        ) {entry ->
+
+
+            val stringVal = entry.arguments?.getString("name") ?: "Pikachu"
+            ShowcasePage(navController, stringVal)
 
         }
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
