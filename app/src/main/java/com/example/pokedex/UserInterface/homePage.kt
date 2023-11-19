@@ -45,16 +45,19 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.pokedex.Font
+import com.example.pokedex.Pokemon
 import com.example.pokedex.R
 import com.example.pokedex.navigation.Route
-
+import com.example.pokedex.viweModel.searchPageViewModel
 
 
 @Composable
-fun homePage(navController: NavHostController) {
+fun homePage(navController: NavHostController,) {
 
     val context = LocalContext.current
+
 
     Column(
         modifier = Modifier
@@ -100,12 +103,17 @@ fun homePage(navController: NavHostController) {
 
 @Composable
 fun PokemonList(navController: NavHostController) {
-    val Pokemons = PokemonProducer()
+
+     val viewmodel= searchPageViewModel()
+    val pokemons= viewmodel.getMockData()
+
+
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
-        Pokemons.chunked(2) { chunkedPokemons ->
-            item {
+
+        pokemons.chunked(2) { chunkedPokemons ->
+
                 LazyRow(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
@@ -124,11 +132,11 @@ fun PokemonList(navController: NavHostController) {
                                 color = Color.Black
                             )
                             .padding(2.dp),
-                            navController)
+                            navController,pokemon)
 
                     }
                 }
-            }
+
         }
     }
 }
@@ -136,7 +144,7 @@ fun PokemonList(navController: NavHostController) {
 @Composable
 
 fun pokemonBox(modifier: Modifier,
-               navController: NavHostController) {
+               navController: NavHostController,pokemon: Pokemon) {
     val context = LocalContext.current
     Box(
         modifier = modifier
@@ -145,7 +153,6 @@ fun pokemonBox(modifier: Modifier,
 
               navController.navigate(Route.Pokemon.path
               +name)
-
 
             }
     ) {
@@ -163,13 +170,13 @@ fun pokemonBox(modifier: Modifier,
 
             Row(
                 modifier = Modifier
-                    .padding(start = 7.dp, end = 7.dp)
+                    .padding(start = 7.dp)
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "Pokemon",
+                    text = pokemon.name,
                     fontSize = 22.sp,
                     fontFamily = Font.rudaFontFamily,
                     fontWeight = FontWeight.W400,
@@ -180,27 +187,27 @@ fun pokemonBox(modifier: Modifier,
                     contentDescription = "Icon",
                     modifier = Modifier.size(25.dp)
                 )
+
             }
-            //
             val picturemodifier = Modifier
                 .weight(1f)
                 .fillMaxSize()
                 .weight(1f)
                 .fillMaxSize()
-            pokemonPictureAndLogo(modifier = picturemodifier)
+            pokemonPictureAndLogo(modifier = picturemodifier,pokemon)
         }
 
     }
 }
 
 @Composable
-fun pokemonPictureAndLogo(modifier: Modifier){
+fun pokemonPictureAndLogo(modifier: Modifier,pokemon: Pokemon){
     Box(
         modifier=modifier
 
     ) {
         Image(
-            painter = painterResource(id = R.drawable.img_1),
+            painter = painterResource(id = pokemon.picture),
             contentDescription = "Test",
             modifier = Modifier.fillMaxSize()
 
@@ -277,3 +284,11 @@ private data class Tab(
     val icon: ImageVector,
     val rootRoute: Route
 )
+
+@Preview(showBackground = true)
+@Composable
+fun homePreview(){
+    val navController = rememberNavController()
+    homePage(navController = navController)
+
+}

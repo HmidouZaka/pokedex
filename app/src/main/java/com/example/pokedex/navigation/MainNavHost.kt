@@ -26,6 +26,9 @@ fun MainNavHost(navController: NavHostController, modifier: Modifier = Modifier)
         composable(Route.POKEDEX.path) {
            homePage(navController)
         }
+        composable(Route.Search.path) {
+
+        }
         composable(Route.FAVORITES.path) {
            Favorites()
         }
