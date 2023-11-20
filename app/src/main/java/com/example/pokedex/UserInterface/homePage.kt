@@ -43,6 +43,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -101,27 +102,24 @@ fun homePage(navController: NavHostController,) {
 }
 
 
-
 @Composable
 fun PokemonList(navController: NavHostController) {
-     val viewmodel= searchPageViewModel()
-    var pokemons: List<Pokemon> = viewmodel.getMockData()
-
+    val viewModel = viewModel<searchPageViewModel>()
+    val pokemons = viewModel.getMockData()
 
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
-
-        pokemons.chunked(2) { chunkedPokemons ->
-            item {
-
-                LazyRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    items(chunkedPokemons) { pokemon ->
-                        println(pokemon.name)
-                        pokemonBox(modifier = Modifier
+        items(pokemons.chunked(2)) { chunkedPokemons ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(0.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                chunkedPokemons.forEach { pokemon ->
+                    pokemonBox(
+                        modifier = Modifier
                             .width(205.dp)
                             .height(178.dp)
                             .background(
@@ -133,14 +131,12 @@ fun PokemonList(navController: NavHostController) {
                                 shape = RoundedCornerShape(10.dp),
                                 color = Color.Black
                             )
-                            .padding(2.dp),
-
-                            navController,pokemon)
-
-                    }
+                            .padding(4.dp),
+                        navController,
+                        pokemon
+                    )
                 }
-                }
-
+            }
         }
     }
 }
@@ -186,9 +182,10 @@ fun pokemonBox(modifier: Modifier,
                     fontWeight = FontWeight.W400,
                     textAlign = TextAlign.Start
                 )
+                // later should replace with a for each
                 Icon(
                     imageVector = Icons.Default.Face,
-                    contentDescription = "Icon",
+                    contentDescription = "type",
                     modifier = Modifier.size(25.dp)
                 )
 

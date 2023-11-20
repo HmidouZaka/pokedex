@@ -55,13 +55,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.pokedex.viweModel.searchPageViewModel
 
 @Composable
     fun ShowcasePage(   navController: NavHostController, pokemon: String) {
         val context = LocalContext.current
         var selectedGender by remember { mutableStateOf(Gender.NONE) }
 
+    val viewmodel= viewModel<searchPageViewModel>()
+    val pokemon = viewmodel.getMockData().find { it.name == pokemon }
         val maleColor = Color.Blue
         val femaleColor = Color(0xFFFF69B4) // Pink doesn't exist inside Color lol.
 
@@ -88,11 +92,13 @@ import androidx.navigation.NavHostController
 
                 val pokemonName = pokemon;
 
-                Text(
-                    text = pokemonName,
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                if (pokemon != null) {
+                    Text(
+                        text = pokemon.name,
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
             Divider(
                 color = Color.Black,
@@ -112,15 +118,17 @@ import androidx.navigation.NavHostController
                         }
                     )
             ) {
-                Image(
+                if (pokemon != null) {
+                    Image(
 
-                    painter = painterResource(id = R.drawable.img_1),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(300.dp),
-                    contentScale = ContentScale.Crop
-                )
+                        painter = painterResource(id = pokemon.picture),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(300.dp),
+                        contentScale = ContentScale.Crop
+                    )
+                }
 
                 Row(
                     modifier = Modifier
