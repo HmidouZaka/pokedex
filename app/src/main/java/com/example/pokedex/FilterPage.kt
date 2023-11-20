@@ -67,6 +67,12 @@ fun FilterPageContent() {
             )
         }
 
+        //SortUp()
+
+        SortButtons(
+            onLowToHighClick = { /* handle low to high sorting */ },
+            onHighToLowClick = { /* handle high to low sorting */ }
+        )
         TypeButton()
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -96,6 +102,44 @@ fun FilterPageContent() {
         }
     }
 }
+
+
+
+
+@Composable
+fun SortButtons(
+    onLowToHighClick: () -> Unit,
+    onHighToLowClick: () -> Unit
+) {
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Button(
+            shape = RectangleShape,
+            onClick = {
+                onLowToHighClick()
+
+            }
+        ) {
+            Text(text = "Low to High")
+        }
+
+        Button(
+            shape = RectangleShape,
+            onClick = {
+                onHighToLowClick()
+            }
+        ) {
+            Text(text = "High to Low")
+        }
+    }
+}
+
+
 @Composable
 fun TypeButton() {
     var isMenuVisible by remember { mutableStateOf(true) }
