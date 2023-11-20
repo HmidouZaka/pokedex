@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -25,6 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.pokedex.FilterViewModel
 
 
 class FilterPage : ComponentActivity() {
@@ -70,8 +72,13 @@ fun FilterPageContent() {
         //SortUp()
 
         SortButtons(
-            onLowToHighClick = { /* handle low to high sorting */ },
-            onHighToLowClick = { /* handle high to low sorting */ }
+            //pokemonList = //pokemon list from api
+            onLowToHighClick = {
+                //pokemonList = lowToHighSort(pokemonList)
+                },
+            onHighToLowClick = {
+                //pokemonList = highToLowSort(pokemonList)
+            }
         )
         TypeButton()
 
@@ -108,9 +115,11 @@ fun FilterPageContent() {
 
 @Composable
 fun SortButtons(
+    //pokemonList: List<Pokemon>,
     onLowToHighClick: () -> Unit,
     onHighToLowClick: () -> Unit
 ) {
+    var selectedSortOption by remember { mutableStateOf<SortOption?>(null) }
 
     Row(
         modifier = Modifier
@@ -121,9 +130,14 @@ fun SortButtons(
         Button(
             shape = RectangleShape,
             onClick = {
+                selectedSortOption = SortOption.LowToHigh
                 onLowToHighClick()
-
-            }
+            },
+            modifier = Modifier
+                .border(
+                    width = 4.dp,
+                    color = if (selectedSortOption == SortOption.LowToHigh) Color.DarkGray else Color.White,
+                )
         ) {
             Text(text = "Low to High")
         }
@@ -131,13 +145,34 @@ fun SortButtons(
         Button(
             shape = RectangleShape,
             onClick = {
+                selectedSortOption = SortOption.HighToLow
                 onHighToLowClick()
-            }
+            },
+            modifier = Modifier
+                .border(
+                    width = 4.dp,
+                    color = if (selectedSortOption == SortOption.HighToLow) Color.DarkGray else Color.White,
+                )
         ) {
             Text(text = "High to Low")
         }
     }
 }
+
+enum class SortOption {
+    LowToHigh,
+    HighToLow
+}
+
+/*fun lowToHighSort(pokemonList: List<Pokemon>): List<Pokemon> {
+    return pokemonList.sortedBy { it.number }
+}
+
+fun highToLowSort(pokemonList: List<Pokemon>): List<Pokemon> {
+    return pokemonList.sortedByDescending { it.number }
+}
+
+ */
 
 
 @Composable
