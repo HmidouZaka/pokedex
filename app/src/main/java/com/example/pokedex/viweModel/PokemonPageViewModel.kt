@@ -15,13 +15,17 @@ class searchPageViewModel : ViewModel() {
       Pokemon("Jigglypuff", R.drawable.img_4),
       Pokemon("Eevee", R.drawable.img_5),
       Pokemon("Meowth", R.drawable.img_6),
-      Pokemon("Snorlax", R.drawable.img_7),
+      Pokemon("Snorlax", R.drawable.img_7)
     )
     private set
+
+
 
     fun getMockData(): List<Pokemon> {
         return Pokemons
     }
+
+
 
 
 

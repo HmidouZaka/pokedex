@@ -31,6 +31,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -103,9 +104,8 @@ fun homePage(navController: NavHostController,) {
 
 @Composable
 fun PokemonList(navController: NavHostController) {
-
      val viewmodel= searchPageViewModel()
-    val pokemons= viewmodel.getMockData()
+    var pokemons: List<Pokemon> = viewmodel.getMockData()
 
 
     LazyColumn(
@@ -113,12 +113,14 @@ fun PokemonList(navController: NavHostController) {
     ) {
 
         pokemons.chunked(2) { chunkedPokemons ->
+            item {
 
                 LazyRow(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     items(chunkedPokemons) { pokemon ->
+                        println(pokemon.name)
                         pokemonBox(modifier = Modifier
                             .width(205.dp)
                             .height(178.dp)
@@ -132,9 +134,11 @@ fun PokemonList(navController: NavHostController) {
                                 color = Color.Black
                             )
                             .padding(2.dp),
+
                             navController,pokemon)
 
                     }
+                }
                 }
 
         }
@@ -149,7 +153,7 @@ fun pokemonBox(modifier: Modifier,
     Box(
         modifier = modifier
             .clickable {
-                val name="/lizard"
+                val name="/"+pokemon.name
 
               navController.navigate(Route.Pokemon.path
               +name)
@@ -194,6 +198,7 @@ fun pokemonBox(modifier: Modifier,
                 .fillMaxSize()
                 .weight(1f)
                 .fillMaxSize()
+            println(pokemon.name)
             pokemonPictureAndLogo(modifier = picturemodifier,pokemon)
         }
 

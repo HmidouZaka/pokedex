@@ -46,6 +46,7 @@ fun MainNavHost(navController: NavHostController, modifier: Modifier = Modifier)
 
 
             val stringVal = entry.arguments?.getString("name") ?: "Pikachu"
+            println(stringVal)
             ShowcasePage(navController, stringVal)
 
         }

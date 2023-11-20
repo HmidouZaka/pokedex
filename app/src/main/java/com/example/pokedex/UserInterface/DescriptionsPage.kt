@@ -58,7 +58,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 @Composable
-    fun ShowcasePage(   navController: NavHostController, poke: String) {
+    fun ShowcasePage(   navController: NavHostController, pokemon: String) {
         val context = LocalContext.current
         var selectedGender by remember { mutableStateOf(Gender.NONE) }
 
@@ -86,7 +86,8 @@ import androidx.navigation.NavHostController
                 Spacer(modifier = Modifier.width(14.dp))
                 //Texten skal retrieve en string fra PokeAPI'en.
 
-                val pokemonName = poke;
+                val pokemonName = pokemon;
+
                 Text(
                     text = pokemonName,
                     fontSize = 30.sp,
@@ -112,6 +113,7 @@ import androidx.navigation.NavHostController
                     )
             ) {
                 Image(
+
                     painter = painterResource(id = R.drawable.img_1),
                     contentDescription = null,
                     modifier = Modifier
