@@ -7,7 +7,7 @@ import com.example.pokedex.PokemonObject
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 
 class searchPageViewModel : ViewModel() {
-    private var selectedPokemon: Pokemon = PokemonObject.pokeList[0]
+    private var selectedPokemon: Pokemon? = null
 
     var Pokemons = PokemonObject.pokeList
 
@@ -16,7 +16,7 @@ class searchPageViewModel : ViewModel() {
         return Pokemons
     }
 
-    fun getPokemon():Pokemon{
+    fun getPokemon():Pokemon?{
         return selectedPokemon
     }
     fun setPokemon(pokemon: Pokemon){

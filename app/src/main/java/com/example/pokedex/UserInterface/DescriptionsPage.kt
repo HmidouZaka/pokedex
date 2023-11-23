@@ -72,11 +72,13 @@ import com.example.pokedex.viewModel.searchPageViewModel
                 Spacer(modifier = Modifier.width(14.dp))
                 //Texten skal retrieve en string fra PokeAPI'en.
 
-                Text(
-                    text = pokemon.name,
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                pokemon?.let {
+                    Text(
+                        text = it.name,
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
             Divider(
                 color = Color.Black,
