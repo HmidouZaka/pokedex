@@ -26,8 +26,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
@@ -72,6 +74,7 @@ import com.example.pokedex.viweModel.searchPageViewModel
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
+                .verticalScroll(rememberScrollState(),true)
         ) {
             // Top Baren folkens!
             Row(
@@ -184,12 +187,12 @@ import com.example.pokedex.viweModel.searchPageViewModel
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
-                    .height(100.dp)
+                    .height(220.dp)
                     .background(Color.LightGray)
                     .clip(CircleShape)
             ) {
                 Text(
-                    text = "Hello, gais it's ya boi anomaly.!",
+                    text = pokemon.pokedexText[0],
                     modifier = Modifier
                         .padding(16.dp)
                         .align(Alignment.CenterStart),

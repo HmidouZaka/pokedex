@@ -11,10 +11,12 @@ import androidx.compose.ui.Modifier
 import com.example.pokedex.ui.theme.PokedexTheme
 import kotlinx.coroutines.*
 import com.example.pokedex.navigation.navStart
+import com.example.pokedex.viweModel.ApiViewModel
 
 
 object PokemonObject{
-    var pokeList = ArrayList<Pokemon>();
+    var pokeList = ArrayList<Pokemon>()
+    var faveList = ArrayList<Pokemon>()
 }
 
 

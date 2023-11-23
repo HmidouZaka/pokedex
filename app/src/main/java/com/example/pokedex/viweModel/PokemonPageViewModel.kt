@@ -10,12 +10,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class searchPageViewModel : ViewModel() {
     private var selectedPokemon: Pokemon = PokemonObject.pokeList[0]
+    var PokemonsFave = PokemonObject.faveList
 
     var Pokemons = PokemonObject.pokeList
 
 
-    fun getMockData(): List<Pokemon> {
+    fun getMockData(isFavorite:Boolean): List<Pokemon> {
+        if (!isFavorite)
         return Pokemons
+        else return PokemonsFave
     }
 
     fun getPokemon():Pokemon{

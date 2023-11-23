@@ -35,7 +35,7 @@ fun MainNavHost(navController: NavHostController, modifier: Modifier = Modifier)
 
         }
         composable(Route.FAVORITES.path) {
-           Favorites()
+           Favorites(navController, viewModel)
         }
         composable(Route.Pokemon.path)
             {

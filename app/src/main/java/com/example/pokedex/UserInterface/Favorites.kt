@@ -24,14 +24,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.pokedex.R
+import com.example.pokedex.viweModel.searchPageViewModel
 
 
 //Placeholder
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
-fun Favorites() {
+fun Favorites(navHostController: NavHostController, viewModel: searchPageViewModel) {
 
     Column(
         modifier = Modifier
@@ -60,6 +62,9 @@ fun Favorites() {
             Icon(imageVector = Icons.Default.Search, contentDescription = "search")
 
 
+
+
         }
+        PokemonList(navController = navHostController, viewModel =viewModel, isFavorite = true)
     }
 }

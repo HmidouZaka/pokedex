@@ -51,6 +51,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.pokedex.Font
 import com.example.pokedex.Pokemon
+import com.example.pokedex.PokemonObject
 import com.example.pokedex.R
 import com.example.pokedex.navigation.Route
 import com.example.pokedex.viweModel.searchPageViewModel
@@ -98,15 +99,14 @@ fun homePage(navController: NavHostController,viewModel: searchPageViewModel) {
 
                 })
         }
-        PokemonList(navController,viewModel)
+        PokemonList(navController,viewModel,false)
     }
 }
 
 
 @Composable
-fun PokemonList(navController: NavHostController,viewModel: searchPageViewModel) {
-
-    val pokemons = viewModel.getMockData()
+fun PokemonList(navController: NavHostController,viewModel: searchPageViewModel,isFavorite: Boolean) {
+    val pokemons = viewModel.getMockData(isFavorite)
 
     LazyColumn(
         modifier = Modifier.fillMaxSize()
@@ -200,14 +200,14 @@ fun pokemonBox(modifier: Modifier,
                 .weight(1f)
                 .fillMaxSize()
             println(pokemon.name)
-            pokemonPictureAndLogo(modifier = picturemodifier,pokemon)
+            pokemonPictureAndLogo(modifier = picturemodifier,pokemon,   viewModel)
         }
 
     }
 }
 
 @Composable
-fun pokemonPictureAndLogo(modifier: Modifier,pokemon: Pokemon){
+fun pokemonPictureAndLogo(modifier: Modifier,pokemon: Pokemon,viewModel: searchPageViewModel){
     Box(
         modifier=modifier
 
@@ -226,6 +226,12 @@ fun pokemonPictureAndLogo(modifier: Modifier,pokemon: Pokemon){
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .size(22.dp)
+                .clickable {
+                    if (viewModel.PokemonsFave.contains(pokemon))
+                        viewModel.PokemonsFave.remove(pokemon)
+                    else
+                    viewModel.PokemonsFave.add(pokemon)
+                }
 
         )
     }
