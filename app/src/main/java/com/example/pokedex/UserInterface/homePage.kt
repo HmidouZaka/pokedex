@@ -141,9 +141,27 @@ fun PokemonList(navController: NavHostController,viewModel: searchPageViewModel)
         }
     }
 }
-
+val types = listOf(
+    R.drawable.bugicon,
+    R.drawable.dark,
+    R.drawable.dragon,
+    R.drawable.electric,
+    R.drawable.fairy,
+    R.drawable.fighting,
+    R.drawable.fire,
+    R.drawable.flying,
+    R.drawable.ghost,
+    R.drawable.grass,
+    R.drawable.ground,
+    R.drawable.iceicla,
+    R.drawable.normal,
+    R.drawable.poison,
+    R.drawable.psychic,
+    R.drawable.rock,
+    R.drawable.steel,
+    R.drawable.water
+)
 @Composable
-
 fun pokemonBox(modifier: Modifier,
                navController: NavHostController,pokemon: Pokemon,viewModel: searchPageViewModel) {
     val context = LocalContext.current
@@ -187,13 +205,21 @@ fun pokemonBox(modifier: Modifier,
                     textAlign = TextAlign.Start
                 )
                 // later should replace with a for each
-                Icon(
-                    imageVector = Icons.Default.Face,
-                    contentDescription = "type",
-                    modifier = Modifier.size(25.dp)
-                )
 
+Row() {
+    Icon(
+        imageVector = Icons.Default.Face,
+        contentDescription = "type",
+        modifier = Modifier.size(25.dp)
+    )
+    Icon(
+        imageVector = Icons.Default.Face,
+        contentDescription = "type",
+        modifier = Modifier.size(25.dp)
+    )
+}
             }
+
             val picturemodifier = Modifier
                 .weight(1f)
                 .fillMaxSize()
@@ -226,7 +252,6 @@ fun pokemonPictureAndLogo(modifier: Modifier,pokemon: Pokemon){
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .size(22.dp)
-
         )
     }
 

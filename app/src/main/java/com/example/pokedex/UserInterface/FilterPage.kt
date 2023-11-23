@@ -187,7 +187,7 @@ fun TypeButton() {
 
     if (isMenuVisible) {
         val types = listOf(
-            R.drawable.bug,
+            R.drawable.bugicon,
             R.drawable.dark,
             R.drawable.dragon,
             R.drawable.electric,
@@ -198,7 +198,7 @@ fun TypeButton() {
             R.drawable.ghost,
             R.drawable.grass,
             R.drawable.ground,
-            R.drawable.ice,
+            R.drawable.iceicla,
             R.drawable.normal,
             R.drawable.poison,
             R.drawable.psychic,

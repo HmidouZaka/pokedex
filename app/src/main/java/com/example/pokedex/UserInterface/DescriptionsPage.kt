@@ -120,10 +120,7 @@ import com.example.pokedex.viweModel.searchPageViewModel
                             .height(350.dp),
                         contentScale = ContentScale.Crop
                     )
-
-
                 }
-
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
