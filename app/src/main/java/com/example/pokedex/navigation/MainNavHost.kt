@@ -39,7 +39,7 @@ fun MainNavHost(navController: NavHostController, modifier: Modifier = Modifier)
             SearchPageFun(navController,viewModel )
         }
         composable(Route.FAVORITES.path) {
-           Favorites()
+           Favorites(navController, viewModel)
         }
         composable(Route.Filter.path) {
             FilterPageContent()

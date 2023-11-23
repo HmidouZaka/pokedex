@@ -1,14 +1,12 @@
-package com.example.pokedex
+package com.example.pokedex.viweModel
 
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.capitalize
 import androidx.lifecycle.*
-import coil.compose.AsyncImage
+import com.example.pokedex.Pokemon
+import com.example.pokedex.PokemonObject
 import kotlinx.coroutines.*
 import java.net.URL
 import org.json.JSONObject
@@ -32,9 +30,10 @@ class ApiViewModel: ViewModel() {
 ////            if(cleanCopy and (!cacheJson.has("$i"))) {
 //
                 val jsonData2 = URL("https://pokeapi.co/api/v2/pokemon/$i").readText()
+                val jsonDataSpecies = URL("https://pokeapi.co/api/v2/pokemon-species/$i").readText()
 ////            }
                 var pokemonJson2  = JSONObject(jsonData2)
-//
+                var pokemonJsonSpecies = JSONObject(jsonDataSpecies)
                 if (pokemonJson2.getBoolean("is_default") or !onlyDefaults) {
                     var pokeName: String =
                         pokemonJson2.getString("name")
@@ -44,9 +43,20 @@ class ApiViewModel: ViewModel() {
                         pokemonJson2.getJSONObject(
                             "sprites"
                         ).getJSONObject("other").getJSONObject("official-artwork").getString("front_default")
-                    Log.d("info",""+pokeName+" "+pokeDefaultPictureFront+" "+ pokeId)
+                    var type1: String =pokemonJson2.getJSONArray("types").getJSONObject(0).getJSONObject("type").getString("name")
 
-                    PokemonObject.pokeList.add(Pokemon(pokeName, pokeDefaultPictureFront, pokeId))
+
+
+                    var type2: String = "null"
+                    if (pokemonJson2.getJSONArray("types").length()>1) {
+                        type2 = pokemonJson2.getJSONArray("types").getJSONObject(1).getJSONObject("type").getString("name")
+                    }
+                    var pokedexTextList = ArrayList<String>()
+                    pokedexTextList.add(pokemonJsonSpecies.getJSONArray("flavor_text_entries").getJSONObject(0).getString("flavor_text"))
+
+                        Log.d("info",""+pokeName+" "+pokeDefaultPictureFront+" "+ pokeId+" "+  type1+" "+type2)
+
+                    PokemonObject.pokeList.add(Pokemon(pokeName.replaceFirstChar { it.uppercase() }, pokeDefaultPictureFront, pokeId,type1,type2, pokedexTextList))
 //                cacheJson.put(""+pokeId,pokeName)
                 }
 
