@@ -15,8 +15,12 @@ import com.example.pokedex.ShowcasePage
 
 import com.example.pokedex.UserInterface.BottomBar
 import com.example.pokedex.UserInterface.Favorites
+import com.example.pokedex.UserInterface.FilterPage
+import com.example.pokedex.UserInterface.FilterPageContent
 import com.example.pokedex.UserInterface.homePage
-import com.example.pokedex.viweModel.searchPageViewModel
+import com.example.pokedex.UserInterface.SearchPageFun
+
+import com.example.pokedex.viewModel.searchPageViewModel
 
 
 @Composable
@@ -32,10 +36,13 @@ fun MainNavHost(navController: NavHostController, modifier: Modifier = Modifier)
            homePage(navController,viewModel)
         }
         composable(Route.Search.path) {
-
+            SearchPageFun(navController,viewModel )
         }
         composable(Route.FAVORITES.path) {
            Favorites()
+        }
+        composable(Route.Filter.path) {
+            FilterPageContent()
         }
         composable(Route.Pokemon.path)
             {
