@@ -20,7 +20,7 @@ import com.example.pokedex.UserInterface.FilterPageContent
 import com.example.pokedex.UserInterface.homePage
 import com.example.pokedex.UserInterface.SearchPageFun
 
-import com.example.pokedex.viewModel.searchPageViewModel
+import com.example.pokedex.viweModel.searchPageViewModel
 
 
 @Composable

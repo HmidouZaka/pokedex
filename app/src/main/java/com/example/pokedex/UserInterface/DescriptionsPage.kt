@@ -193,13 +193,15 @@ import com.example.pokedex.viweModel.searchPageViewModel
                     .background(Color.LightGray)
                     .clip(CircleShape)
             ) {
-                Text(
-                    text = pokemon.pokedexText[0],
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .align(Alignment.CenterStart),
-                    color = Color.White
-                )
+                if (pokemon != null) {
+                    Text(
+                        text = pokemon.pokedexText[0],
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .align(Alignment.CenterStart),
+                        color = Color.White
+                    )
+                }
             }
         }
     }

@@ -52,18 +52,15 @@ import com.example.pokedex.Pokemon
 import com.example.pokedex.PokemonObject
 import com.example.pokedex.R
 import com.example.pokedex.navigation.Route
-import com.example.pokedex.viewModel.searchPageViewModel
 
-
-
-
+import com.example.pokedex.viweModel.searchPageViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchPageFun(navController: NavHostController, viewModel: searchPageViewModel) {
     var name by remember { mutableStateOf("") }
-    val Pokemons= viewModel.getMockData()
+    val Pokemons= viewModel.getMockData(false)
     val context = LocalContext.current // Get the current context
 
     Column(

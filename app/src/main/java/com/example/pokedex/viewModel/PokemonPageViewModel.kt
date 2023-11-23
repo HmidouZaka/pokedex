@@ -21,7 +21,7 @@ class searchPageViewModel : ViewModel() {
         else return PokemonsFave
     }
 
-    fun getPokemon():Pokemon{
+    fun getPokemon():Pokemon?{
         return selectedPokemon
     }
     fun setPokemon(pokemon: Pokemon){

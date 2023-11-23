@@ -53,7 +53,7 @@ import com.example.pokedex.Pokemon
 import com.example.pokedex.PokemonObject
 import com.example.pokedex.R
 import com.example.pokedex.navigation.Route
-import com.example.pokedex.viewModel.searchPageViewModel
+import com.example.pokedex.viweModel.searchPageViewModel
 
 
 @Composable
@@ -142,25 +142,26 @@ fun PokemonList(navController: NavHostController,viewModel: searchPageViewModel,
     }
 }
 val types = listOf(
-    R.drawable.bugicon,
-    R.drawable.dark,
-    R.drawable.dragon,
-    R.drawable.electric,
-    R.drawable.fairy,
-    R.drawable.fighting,
-    R.drawable.fire,
-    R.drawable.flying,
-    R.drawable.ghost,
-    R.drawable.grass,
-    R.drawable.ground,
-    R.drawable.iceicla,
-    R.drawable.normal,
-    R.drawable.poison,
-    R.drawable.psychic,
-    R.drawable.rock,
-    R.drawable.steel,
-    R.drawable.water
+    R.drawable.bug,
+    R.drawable.dar,
+    R.drawable.dra,
+    R.drawable.ele,
+    R.drawable.fai,
+    R.drawable.fig,
+    R.drawable.fir,
+    R.drawable.fly,
+    R.drawable.gho,
+    R.drawable.gra,
+    R.drawable.gro,
+    R.drawable.ice,
+    R.drawable.nor,
+    R.drawable.poi,
+    R.drawable.psy,
+    R.drawable.roc,
+    R.drawable.ste,
+    R.drawable.wat
 )
+
 @Composable
 fun pokemonBox(modifier: Modifier,
                navController: NavHostController,pokemon: Pokemon,viewModel: searchPageViewModel) {
@@ -203,7 +204,17 @@ fun pokemonBox(modifier: Modifier,
                 // later should replace with a for each
 
 Row() {
-    Icon(
+
+    val TypeString = ""
+
+// Using a for loop
+    for (i in 0 until minOf(3, TypeString.length)) {
+        val currentChar = TypeString[i]
+        if (TypeString.equals(types)) {
+
+        }
+    }
+    Image(
         imageVector = Icons.Default.Face,
         contentDescription = "type",
         modifier = Modifier.size(25.dp)
