@@ -7,11 +7,11 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\mfs20\.android\avd\sugma_API_34.avd" />
+            <value value="C:\Users\Abdis\.android\avd\New_Figma_API_34.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2023-11-16T14:31:06.637641600Z" />
+    <timeTargetWasSelectedWithDropDown value="2023-11-18T16:19:31.861454300Z" />
   </component>
 </project>

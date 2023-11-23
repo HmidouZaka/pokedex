@@ -1,8 +1,7 @@
-package com.example.pokedex
+package com.example.pokedex.UserInterface
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -16,15 +15,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.pokedex.MainActivity
+import com.example.pokedex.R
+
 
 
 class FilterPage : ComponentActivity() {
@@ -67,6 +67,17 @@ fun FilterPageContent() {
             )
         }
 
+        //SortUp()
+
+        SortButtons(
+            //pokemonList = //pokemon list from api
+            onLowToHighClick = {
+                //pokemonList = lowToHighSort(pokemonList)
+                },
+            onHighToLowClick = {
+                //pokemonList = highToLowSort(pokemonList)
+            }
+        )
         TypeButton()
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -96,6 +107,72 @@ fun FilterPageContent() {
         }
     }
 }
+
+
+
+
+@Composable
+fun SortButtons(
+    //pokemonList: List<Pokemon>,
+    onLowToHighClick: () -> Unit,
+    onHighToLowClick: () -> Unit
+) {
+    var selectedSortOption by remember { mutableStateOf<SortOption?>(null) }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Button(
+            shape = RectangleShape,
+            onClick = {
+                selectedSortOption = SortOption.LowToHigh
+                onLowToHighClick()
+            },
+            modifier = Modifier
+                .border(
+                    width = 4.dp,
+                    color = if (selectedSortOption == SortOption.LowToHigh) Color.DarkGray else Color.White,
+                )
+        ) {
+            Text(text = "Low to High")
+        }
+
+        Button(
+            shape = RectangleShape,
+            onClick = {
+                selectedSortOption = SortOption.HighToLow
+                onHighToLowClick()
+            },
+            modifier = Modifier
+                .border(
+                    width = 4.dp,
+                    color = if (selectedSortOption == SortOption.HighToLow) Color.DarkGray else Color.White,
+                )
+        ) {
+            Text(text = "High to Low")
+        }
+    }
+}
+
+enum class SortOption {
+    LowToHigh,
+    HighToLow
+}
+
+/*fun lowToHighSort(pokemonList: List<Pokemon>): List<Pokemon> {
+    return pokemonList.sortedBy { it.number }
+}
+
+fun highToLowSort(pokemonList: List<Pokemon>): List<Pokemon> {
+    return pokemonList.sortedByDescending { it.number }
+}
+
+ */
+
+
 @Composable
 fun TypeButton() {
     var isMenuVisible by remember { mutableStateOf(true) }
@@ -110,10 +187,24 @@ fun TypeButton() {
 
     if (isMenuVisible) {
         val types = listOf(
-            R.drawable.bug, R.drawable.dark, R.drawable.dragon, R.drawable.electric, R.drawable.fairy,
-            R.drawable.fighting, R.drawable.fire, R.drawable.flying, R.drawable.ghost, R.drawable.grass,
-            R.drawable.ground, R.drawable.ice, R.drawable.normal, R.drawable.poison, R.drawable.psychic, R.drawable.rock,
-            R.drawable.steel, R.drawable.water
+            R.drawable.bug,
+            R.drawable.dark,
+            R.drawable.dragon,
+            R.drawable.electric,
+            R.drawable.fairy,
+            R.drawable.fighting,
+            R.drawable.fire,
+            R.drawable.flying,
+            R.drawable.ghost,
+            R.drawable.grass,
+            R.drawable.ground,
+            R.drawable.ice,
+            R.drawable.normal,
+            R.drawable.poison,
+            R.drawable.psychic,
+            R.drawable.rock,
+            R.drawable.steel,
+            R.drawable.water
         )
         val columnsPerRow = 3
         val groupedTypes = types.chunked(columnsPerRow)

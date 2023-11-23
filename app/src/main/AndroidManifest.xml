@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -24,20 +25,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SearchPage"
+            android:name=".UserInterface.SearchPage"
+            android:exported="true"
+            android:label="pokedex"
+            android:theme="@style/Theme.Pokedex">
+        </activity>
+        <activity
+            android:name=".UserInterface.FilterPage"
             android:exported="true"
             android:label="pokedex"
             android:theme="@style/Theme.Pokedex">
         </activity>
 
         <activity
-            android:name=".FilterPage"
-            android:exported="true"
-            android:label="pokedex"
-            android:theme="@style/Theme.Pokedex">
-        </activity>
-        <activity
-            android:name=".DescriptionsPage"
+            android:name=".UserInterface.DescriptionsPage"
             android:exported="true"
             android:label="pokedex"
             android:theme="@style/Theme.Pokedex">

@@ -1,9 +1,10 @@
-package com.example.pokedex
+package com.example.pokedex.UserInterface
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -43,22 +44,33 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.pokedex.MainActivity
+import com.example.pokedex.Pokemon
+import com.example.pokedex.R
+import com.example.pokedex.viweModel.searchPageViewModel
+
 class SearchPage : ComponentActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_searchpage)
-        setContent {
+    super.onCreate(savedInstanceState)
+      //  setContentView(R.layout.activity_searchpage)
+    setContent {
             SearchPageFun()
+
+
+
         }
     }
-}
+
+
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
 @Composable
 fun SearchPageFun() {
     var name by remember { mutableStateOf("") }
-    val Pokemons= PokemonProducer()
+    val viewmodel = searchPageViewModel()
+    val Pokemons= viewmodel.Pokemons
     val context = LocalContext.current // Get the current context
 
     Column(
@@ -166,22 +178,5 @@ fun Pokemonlists(Pokemons:List<Pokemon>
         }
     }
 }
-@Composable
-fun PokemonProducer(): List<Pokemon> {
-    var Pokemons: MutableList<Pokemon> = mutableListOf()
-    Pokemons.add(Pokemon("Pikachu", R.drawable.img))
-    Pokemons.add(Pokemon("Charmander", R.drawable.img_1))
-    Pokemons.add(Pokemon("Bulbasaur", R.drawable.img_2))
-    Pokemons.add(Pokemon("Squirtle", R.drawable.img_3))
-    Pokemons.add(Pokemon("Jigglypuff", R.drawable.img_4))
-    Pokemons.add(Pokemon("Eevee", R.drawable.img_5))
-    Pokemons.add(Pokemon("Meowth", R.drawable.img_6))
-    Pokemons.add(Pokemon("Snorlax", R.drawable.img_7))
-    Pokemons.add(Pokemon("Pikachu", R.drawable.img))
-    Pokemons.add(Pokemon("Pikachu", R.drawable.img))
-    Pokemons.add(Pokemon("Pikachu", R.drawable.img))
-    Pokemons.add(Pokemon("Pikachu", R.drawable.img))
-    Pokemons.add(Pokemon("Pikachu", R.drawable.img))
-    Pokemons.add(Pokemon("Pikachu", R.drawable.img))
-    return Pokemons
+
 }
