@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET"/>
 
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -25,13 +26,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SearchPage"
+            android:name=".UserInterface.SearchPage"
             android:exported="true"
             android:label="pokedex"
             android:theme="@style/Theme.Pokedex">
         </activity>
         <activity
-            android:name=".FilterPage"
+            android:name=".UserInterface.FilterPage"
+            android:exported="true"
+            android:label="pokedex"
+            android:theme="@style/Theme.Pokedex">
+        </activity>
+
+        <activity
+            android:name=".UserInterface.DescriptionsPage"
             android:exported="true"
             android:label="pokedex"
             android:theme="@style/Theme.Pokedex">

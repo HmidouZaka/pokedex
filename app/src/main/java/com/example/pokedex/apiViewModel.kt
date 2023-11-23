@@ -3,7 +3,12 @@ package com.example.pokedex
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.*
+import coil.compose.AsyncImage
 import kotlinx.coroutines.*
 import java.net.URL
 import org.json.JSONObject
@@ -40,6 +45,7 @@ class ApiViewModel: ViewModel() {
                             "sprites"
                         ).getJSONObject("other").getJSONObject("official-artwork").getString("front_default")
                     Log.d("info",""+pokeName+" "+pokeDefaultPictureFront+" "+ pokeId)
+
                     PokemonObject.pokeList.add(Pokemon(pokeName, pokeDefaultPictureFront, pokeId))
 //                cacheJson.put(""+pokeId,pokeName)
                 }
