@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -53,13 +52,12 @@ import com.example.pokedex.Font
 import com.example.pokedex.Pokemon
 import com.example.pokedex.R
 import com.example.pokedex.navigation.Route
-import com.example.pokedex.viweModel.searchPageViewModel
+import com.example.pokedex.viewModel.searchPageViewModel
 
 
 @Composable
 fun homePage(navController: NavHostController,viewModel: searchPageViewModel) {
 
-    val context = LocalContext.current
 
 
     Column(
@@ -85,16 +83,17 @@ fun homePage(navController: NavHostController,viewModel: searchPageViewModel) {
                 contentDescription = "filter", modifier = Modifier
                     .size(24.dp)
                     .clickable {
-                        val intent = Intent(context, FilterPage::class.java)
-                        context.startActivity(intent)
-                    })
+                        navController.navigate(Route.Filter.path)
+
+                    }
+                  )
 
             Spacer(modifier = Modifier.width(34.dp))
 
             Icon(imageVector = Icons.Default.Search, contentDescription = "search",
                 modifier = Modifier.clickable {
-                    val intent = Intent(context, SearchPage::class.java)
-                    context.startActivity(intent)
+                    navController.navigate(Route.Search.path)
+
 
                 })
         }
@@ -151,10 +150,6 @@ fun pokemonBox(modifier: Modifier,
         modifier = modifier
             .clickable {
 
-             //   val name="/"+pokemon.name
-
-            //  navController.navigate(Route.Pokemon.path
-             // +name)
 
                viewModel.setPokemon(pokemon)
                 navController.navigate(Route.Pokemon.path)
@@ -177,7 +172,6 @@ fun pokemonBox(modifier: Modifier,
                     .padding(start = 7.dp)
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
                     text = pokemon.name,
@@ -187,6 +181,12 @@ fun pokemonBox(modifier: Modifier,
                     textAlign = TextAlign.Start
                 )
                 // later should replace with a for each
+                Icon(
+                    imageVector = Icons.Default.Face,
+                    contentDescription = "type",
+                    modifier = Modifier.size(25.dp)
+                )
+                if(true)
                 Icon(
                     imageVector = Icons.Default.Face,
                     contentDescription = "type",

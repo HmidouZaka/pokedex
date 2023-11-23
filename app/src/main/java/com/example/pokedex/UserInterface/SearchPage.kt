@@ -45,28 +45,15 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.pokedex.MainActivity
 import com.example.pokedex.Pokemon
 import com.example.pokedex.PokemonObject
 import com.example.pokedex.R
-import com.example.pokedex.viweModel.searchPageViewModel
+import com.example.pokedex.navigation.Route
+import com.example.pokedex.viewModel.searchPageViewModel
 
-class SearchPage : ComponentActivity(){
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-      //  setContentView(R.layout.activity_searchpage)
-    setContent {
-            SearchPageFun()
-
-
-
-        }
-
-
-
-    }
 
 
 
@@ -74,10 +61,9 @@ class SearchPage : ComponentActivity(){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchPageFun() {
+fun SearchPageFun(navController: NavHostController, viewModel: searchPageViewModel) {
     var name by remember { mutableStateOf("") }
-    val viewmodel = searchPageViewModel()
-    val Pokemons= viewmodel.Pokemons
+    val Pokemons= viewModel.getMockData()
     val context = LocalContext.current // Get the current context
 
     Column(
@@ -120,13 +106,13 @@ fun SearchPageFun() {
             }
         }
 
-        Pokemonlists(PokemonObject.pokeList)
+        Pokemonlists(PokemonObject.pokeList,navController,viewModel)
     }
 }
 
 @Composable
-fun Pokemonlists(pokeList:List<Pokemon>
-                 ,modifier: Modifier = Modifier
+fun Pokemonlists(pokeList:List<Pokemon>,
+                 navController: NavHostController, viewModel: searchPageViewModel
 ) {
 
 
@@ -140,6 +126,11 @@ fun Pokemonlists(pokeList:List<Pokemon>
 
             Row(
                 verticalAlignment = Alignment.CenterVertically
+                ,
+                modifier = Modifier.clickable {
+                    viewModel.setPokemon(currentPokemon)
+                    navController.navigate(Route.Pokemon.path)
+                }
             ) {
 
 
@@ -171,7 +162,7 @@ fun Pokemonlists(pokeList:List<Pokemon>
 
                 }
 
-                Spacer(modifier.width(25.02.dp))
+                Spacer(modifier= Modifier.width(25.02.dp))
 
                 Text(
                     text = currentPokemon.name,
@@ -181,11 +172,11 @@ fun Pokemonlists(pokeList:List<Pokemon>
                 )
 
             }
-            Spacer(modifier.height(39.dp))
+            Spacer(modifier= Modifier.height(39.dp))
 
         }
     }
-}
+
 
 }
 
