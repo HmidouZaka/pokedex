@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 
 // ViewModel
-class FilterViewModel : ViewModel() {
+/*class FilterViewModel : ViewModel() {
     private val _selectedSortOption = mutableStateOf<SortOption?>(null)
     val selectedSortOption: State<SortOption?> = _selectedSortOption
 
@@ -13,3 +13,5 @@ class FilterViewModel : ViewModel() {
         _selectedSortOption.value = sortOption
     }
 }
+
+ */
