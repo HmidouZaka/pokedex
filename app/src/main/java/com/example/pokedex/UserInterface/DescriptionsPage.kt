@@ -60,12 +60,11 @@ import androidx.navigation.NavHostController
 import com.example.pokedex.viweModel.searchPageViewModel
 
 @Composable
-    fun ShowcasePage(   navController: NavHostController, pokemon: String) {
+    fun ShowcasePage( navController: NavHostController, viewModel: searchPageViewModel) {
         val context = LocalContext.current
         var selectedGender by remember { mutableStateOf(Gender.NONE) }
 
-    val viewmodel= viewModel<searchPageViewModel>()
-    val pokemon = viewmodel.getMockData().find { it.name == pokemon }
+    val pokemon = viewModel.getPokemon()
         val maleColor = Color.Blue
         val femaleColor = Color(0xFFFF69B4) // Pink doesn't exist inside Color lol.
 

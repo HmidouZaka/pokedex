@@ -56,7 +56,7 @@ import com.example.pokedex.viweModel.searchPageViewModel
 
 
 @Composable
-fun homePage(navController: NavHostController,) {
+fun homePage(navController: NavHostController,viewModel: searchPageViewModel) {
 
     val context = LocalContext.current
 
@@ -97,14 +97,14 @@ fun homePage(navController: NavHostController,) {
 
                 })
         }
-        PokemonList(navController)
+        PokemonList(navController,viewModel)
     }
 }
 
 
 @Composable
-fun PokemonList(navController: NavHostController) {
-    val viewModel = viewModel<searchPageViewModel>()
+fun PokemonList(navController: NavHostController,viewModel: searchPageViewModel) {
+
     val pokemons = viewModel.getMockData()
 
     LazyColumn(
@@ -133,7 +133,7 @@ fun PokemonList(navController: NavHostController) {
                             )
                             .padding(4.dp),
                         navController,
-                        pokemon
+                        pokemon,viewModel
                     )
                 }
             }
@@ -144,15 +144,17 @@ fun PokemonList(navController: NavHostController) {
 @Composable
 
 fun pokemonBox(modifier: Modifier,
-               navController: NavHostController,pokemon: Pokemon) {
+               navController: NavHostController,pokemon: Pokemon,viewModel: searchPageViewModel) {
     val context = LocalContext.current
     Box(
         modifier = modifier
             .clickable {
-                val name="/"+pokemon.name
+             //   val name="/"+pokemon.name
 
-              navController.navigate(Route.Pokemon.path
-              +name)
+            //  navController.navigate(Route.Pokemon.path
+             // +name)
+               viewModel.setPokemon(pokemon)
+                navController.navigate(Route.Pokemon.path)
 
             }
     ) {
@@ -291,6 +293,8 @@ private data class Tab(
 @Composable
 fun homePreview(){
     val navController = rememberNavController()
-    homePage(navController = navController)
+    val viewModel = viewModel<searchPageViewModel>()
+
+    homePage(navController = navController,viewModel)
 
 }

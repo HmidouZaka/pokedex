@@ -8,8 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 
 class searchPageViewModel : ViewModel() {
-    private val _selectedPokemon = MutableStateFlow<Pokemon?>(null)
-    //val selectedPokemon: Flow<Pokemon?> get() = _selectedPokemon
+    private var selectedPokemon: Pokemon=  Pokemon("Charmander", R.drawable.img_1)
 
     var Pokemons: MutableList<Pokemon> = mutableListOf(
         Pokemon("Charmander", R.drawable.img_1),
@@ -30,6 +29,14 @@ class searchPageViewModel : ViewModel() {
     fun getMockData(): List<Pokemon> {
         return Pokemons
     }
+
+    fun getPokemon():Pokemon{
+        return selectedPokemon
+    }
+    fun setPokemon(pokemon: Pokemon){
+      selectedPokemon = pokemon
+    }
+
 
 
 
