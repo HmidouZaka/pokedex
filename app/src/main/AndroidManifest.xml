@@ -39,7 +39,7 @@
         </activity>
 
         <activity
-            android:name=".UserInterface.DescriptionsPage"
+            android:name=".DescriptionsPage"
             android:exported="true"
             android:label="pokedex"
             android:theme="@style/Theme.Pokedex">

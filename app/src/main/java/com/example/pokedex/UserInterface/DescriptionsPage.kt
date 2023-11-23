@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -60,15 +61,13 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.pokedex.viweModel.searchPageViewModel
 
-@Composable
-    fun ShowcasePage( navController: NavHostController, viewModel: searchPageViewModel) {
+    @Composable
+    fun ShowcasePage(navHostController: NavHostController,viewModel: searchPageViewModel) {
         val context = LocalContext.current
         var selectedGender by remember { mutableStateOf(Gender.NONE) }
-
-    val pokemon = viewModel.getPokemon()
-        val maleColor = Color.Blue
-        val femaleColor = Color(0xFFFF69B4) // Pink doesn't exist inside Color lol.
-
+        val pokemon = viewModel.getPokemon()
+        val maleColor = Color(49,59,169)
+        val femaleColor = Color(143,68,124)
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -81,24 +80,18 @@ import com.example.pokedex.viweModel.searchPageViewModel
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.Start
             ) {
-                IconButton(onClick = {
-                    val intent = Intent(context, MainActivity::class.java)
-                    context.startActivity(intent)
-                }) {
+                IconButton(onClick = { val intent = Intent(context, MainActivity::class.java)
+                    context.startActivity(intent) }) {
                     Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                 }
                 Spacer(modifier = Modifier.width(14.dp))
                 //Texten skal retrieve en string fra PokeAPI'en.
 
-                val pokemonName = pokemon;
-
-                if (pokemon != null) {
-                    Text(
-                        text = pokemon.name,
-                        fontSize = 30.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
+                Text(
+                    text = pokemon.name,
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold
+                )
             }
             Divider(
                 color = Color.Black,
@@ -124,7 +117,7 @@ import com.example.pokedex.viweModel.searchPageViewModel
                         contentDescription = null,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(300.dp),
+                            .height(350.dp),
                         contentScale = ContentScale.Crop
                     )
 
@@ -137,7 +130,7 @@ import com.example.pokedex.viweModel.searchPageViewModel
                         .padding(16.dp)
                         .align(Alignment.BottomStart)
                 ) {
-                    //RYK GENDERICONS og Favorite ICON HER SÅ DET BLIVER IN PICTURE som FIGMA
+                 //RYK GENDERICONS og Favorite ICON HER SÅ DET BLIVER IN PICTURE som FIGMA
                     ////////////////////////////////////////////////////
                     Spacer(modifier = Modifier.width(16.dp))
 
@@ -154,13 +147,39 @@ import com.example.pokedex.viweModel.searchPageViewModel
                     selectedGender = Gender.MALE,
                     onGenderSelected = { selectedGender = it }
                 )
-                Spacer(modifier = Modifier.width(16.dp))
+
                 GenderIcon(
                     imageResId = R.drawable.female,
                     selectedGender = Gender.FEMALE,
                     onGenderSelected = { selectedGender = it }
                 )
+                Spacer(modifier = Modifier.weight(1f))
+
+                var isFavorite by remember { mutableStateOf(false) }
+                ///Hello fix fra aisha
+                Box(
+                    modifier = Modifier
+                        .padding(5.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.pokeball_bw),
+                        contentDescription = "Favorite option",
+                        tint = if (isFavorite) Color.Red else Color.Black,
+                        modifier = Modifier
+                            .size(25.dp)
+                            .clickable { isFavorite = !isFavorite }
+                            .requiredSize(36.dp, 36.dp)
+                            .align(Alignment.BottomEnd)
+                    )
+                }
             }
+            Divider(
+                color = Color.Black,
+                thickness = 1.5.dp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            )
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -203,10 +222,7 @@ enum class Gender {
     MALE, FEMALE, NONE // None because some rare exist. Maybe gray should be added.
 }
 
-/*@Composable
+@Composable
 @Preview(showBackground = true)
 fun PokemonShowcasePreview() {
-    ShowcasePage()
 }
-
- */

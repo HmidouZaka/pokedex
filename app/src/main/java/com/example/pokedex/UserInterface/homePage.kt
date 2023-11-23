@@ -150,13 +150,14 @@ fun pokemonBox(modifier: Modifier,
     Box(
         modifier = modifier
             .clickable {
+
              //   val name="/"+pokemon.name
 
             //  navController.navigate(Route.Pokemon.path
              // +name)
+
                viewModel.setPokemon(pokemon)
                 navController.navigate(Route.Pokemon.path)
-
             }
     ) {
 
