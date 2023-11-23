@@ -68,12 +68,9 @@ class DescriptionsPage : ComponentActivity(){
     fun ShowcasePage() {
         val context = LocalContext.current
         var selectedGender by remember { mutableStateOf(Gender.NONE) }
-
+        //val pokemon = viewModel.getPokemon()
         val maleColor = Color(49,59,169)
-        //val hej = Color(234,234,233)
         val femaleColor = Color(143,68,124)
-        // Pink doesn't exist inside Color lol.
-
         Column(
             modifier = Modifier
                 .fillMaxSize()

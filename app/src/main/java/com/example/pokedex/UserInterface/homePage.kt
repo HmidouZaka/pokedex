@@ -48,6 +48,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.pokedex.DescriptionsPage
 import com.example.pokedex.Font
 import com.example.pokedex.Pokemon
 import com.example.pokedex.R
@@ -149,13 +150,15 @@ fun pokemonBox(modifier: Modifier,
     Box(
         modifier = modifier
             .clickable {
+
              //   val name="/"+pokemon.name
 
             //  navController.navigate(Route.Pokemon.path
              // +name)
-               viewModel.setPokemon(pokemon)
-                navController.navigate(Route.Pokemon.path)
-
+                val intent = Intent(context, DescriptionsPage::class.java)
+                context.startActivity(intent)
+               //viewModel.setPokemon(pokemon)
+                //navController.navigate(Route.Pokemon.path)
             }
     ) {
 

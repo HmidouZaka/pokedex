@@ -11,7 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.pokedex.ShowcasePage
+
 import com.example.pokedex.UserInterface.BottomBar
 import com.example.pokedex.UserInterface.Favorites
 import com.example.pokedex.UserInterface.homePage
@@ -38,7 +38,7 @@ fun MainNavHost(navController: NavHostController, modifier: Modifier = Modifier)
         }
         composable(Route.Pokemon.path)
             {
-                ShowcasePage(navController, viewModel)
+                //ShowcasePage(navController, viewModel)
             }
         }
     }
