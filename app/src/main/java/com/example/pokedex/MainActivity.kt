@@ -1,8 +1,10 @@
 package com.example.pokedex
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -40,12 +42,18 @@ import androidx.core.content.ContextCompat.startActivity
 import com.example.pokedex.ui.theme.PokedexTheme
 import kotlinx.coroutines.*
 
+object PokemonObject{
+    var pokeList = ArrayList<Pokemon>();
+}
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
+
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        ApiViewModel().addPokemon(0,10000)
+        ApiViewModel().addPokemon(1,1017,true,true)
 
 
 
