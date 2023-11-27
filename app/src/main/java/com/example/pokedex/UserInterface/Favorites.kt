@@ -49,7 +49,7 @@ fun Favorites(navHostController: NavHostController, viewModel: searchPageViewMod
         ) {
             Spacer(modifier = Modifier.width(71.dp))
             Text(
-                text = "faves",
+                text = "Favorites",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold
             )
