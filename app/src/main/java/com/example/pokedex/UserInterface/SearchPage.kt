@@ -23,6 +23,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
@@ -36,12 +38,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.SemanticsProperties.ImeAction
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -56,12 +62,16 @@ import com.example.pokedex.navigation.Route
 import com.example.pokedex.viweModel.searchPageViewModel
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun SearchPageFun(navController: NavHostController, viewModel: searchPageViewModel) {
     var name by remember { mutableStateOf("") }
-    val Pokemons= viewModel.getMockData(false)
+    var Pokemons= viewModel.getMockData(false)
     val context = LocalContext.current // Get the current context
+    var searchList by remember { mutableStateOf(mutableListOf<Pokemon>()) }
+
+
+
 
     Column(
         modifier = Modifier
@@ -73,6 +83,7 @@ fun SearchPageFun(navController: NavHostController, viewModel: searchPageViewMod
                 .fillMaxWidth()
                 .background(Color(0xFFE0E0E0), RoundedCornerShape(15.dp))
                 .height(56.dp),
+
             verticalAlignment = Alignment.CenterVertically
         ) {
 
@@ -80,18 +91,26 @@ fun SearchPageFun(navController: NavHostController, viewModel: searchPageViewMod
                   modifier =  Modifier.clickable {
                         val intent = Intent(context, MainActivity::class.java)
                         context.startActivity(intent)
+
                     })
 
-
-            TextField (
+            TextField(
                 value = name,
                 onValueChange = { text -> name = text },
-                 modifier = Modifier.weight(1f),
-
-               placeholder = {Text (text = "Search your Pokemon") }
+                modifier = Modifier.weight(1f),
+                placeholder = { Text(text = "Search your Pokemon") },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = androidx.compose.ui.text.input.ImeAction.Search
+                ),
+                keyboardActions = KeyboardActions(
+                    onSearch = {
+                        searchList.clear()
+                        name.trim()
+                        searchList = Pokemons.filter { it.name.startsWith(name.replaceFirstChar { it.uppercase() }) }.toMutableList()
+                    }
+                )
             )
-
-
             if (name.isNotBlank()) {
                 Icon(
                     imageVector = Icons.Default.Clear,
@@ -103,7 +122,7 @@ fun SearchPageFun(navController: NavHostController, viewModel: searchPageViewMod
             }
         }
 
-        Pokemonlists(PokemonObject.pokeList,navController,viewModel)
+        Pokemonlists(searchList,navController,viewModel)
     }
 }
 
