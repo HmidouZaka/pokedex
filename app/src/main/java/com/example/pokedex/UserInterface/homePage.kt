@@ -1,6 +1,5 @@
 package com.example.pokedex.UserInterface
 
-import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -30,7 +29,6 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -50,7 +48,6 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.pokedex.Font
 import com.example.pokedex.Pokemon
-import com.example.pokedex.PokemonObject
 import com.example.pokedex.R
 import com.example.pokedex.navigation.Route
 import com.example.pokedex.viweModel.searchPageViewModel
@@ -253,10 +250,11 @@ fun pokemonPictureAndLogo(modifier: Modifier,pokemon: Pokemon,viewModel: searchP
             modifier = Modifier.fillMaxSize()
         )
 
-        Image(
+        Icon(
             painter = painterResource(id = R.drawable.pokeball_notfave),
             //imageVector = Icons.Default.Favorite,
             contentDescription = "pokeball",
+            tint=if (viewModel.PokemonsFave.contains(pokemon)) Color.Red else Color.Black,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .size(22.dp)
