@@ -98,6 +98,14 @@ dependencies {
     implementation("androidx.concurrent:concurrent-futures-ktx:1.1.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("io.coil-kt:coil:2.4.0")
+
+    // viewmodel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
+    // cucumber test
+    androidTestImplementation("io.cucumber:cucumber-android:7.14.0")
+    androidTestImplementation("io.cucumber:cucumber-picocontainer:7.14.1")
+
+
 
 }
