@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ApiViewModel().addPokemon(1,740,true,true)
+        ApiViewModel().addPokemon(1,8,true,true)
 
         setContent {
             PokedexTheme {
@@ -34,6 +34,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+
                     navStart()
                 }
             }
