@@ -5,8 +5,9 @@ import org.junit.runner.RunWith
 
 @RunWith(Cucumber::class)
 @CucumberOptions(
-    features = ["classpath:Favourite"], // path to your feature files
-    glue = ["package com.example.steps"], // package where your step definitions are located
-    plugin = ["pretty", "html:build/reports/cucumber-report"]
+    features = ["classpath:Favourite"],
+    glue = ["package com.example.steps"],
+
 )
+
 class CucumberTest
