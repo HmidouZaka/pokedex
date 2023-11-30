@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 
-class searchPageViewModel : ViewModel() {
+object searchPageViewModel : ViewModel() {
     private var selectedPokemon: Pokemon? = null
     var PokemonsFave = PokemonObject.faveList
 
