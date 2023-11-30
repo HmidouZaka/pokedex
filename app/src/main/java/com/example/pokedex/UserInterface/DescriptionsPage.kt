@@ -180,7 +180,7 @@ import com.example.pokedex.viweModel.searchPageViewModel
                 Column (
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 5.dp)
+                        .padding(bottom = 10.dp)
                 ){
                     Text(text = "", modifier = Modifier.align(Alignment.CenterHorizontally))
                     Spacer(modifier = Modifier.weight(4f))
