@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ApiViewModel().addPokemon(1,8,true,true)
+        ApiViewModel().addPokemon(1,1470,true,true)
 
         setContent {
             PokedexTheme {
