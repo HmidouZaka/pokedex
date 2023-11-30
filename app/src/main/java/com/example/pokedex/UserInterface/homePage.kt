@@ -259,11 +259,12 @@ fun pokemonPictureAndLogo(modifier: Modifier,pokemon: Pokemon,viewModel: searchP
                 .align(Alignment.BottomEnd)
                 .size(22.dp)
                 .clickable {
-                    if (viewModel.PokemonsFave.contains(pokemon))
-                        viewModel.PokemonsFave.remove(pokemon)
-                    else
-                    viewModel.PokemonsFave.add(pokemon)
+
+                    viewModel.toggleFavourite(pokemon)
+
+
                 }
+
 
         )
     }
