@@ -59,7 +59,7 @@ import com.example.pokedex.viweModel.searchPageViewModel
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
-                .verticalScroll(rememberScrollState(),true)
+                .verticalScroll(rememberScrollState(), true)
         ) {
             // Top Baren folkens!
             Row(
@@ -164,6 +164,28 @@ import com.example.pokedex.viweModel.searchPageViewModel
                             .requiredSize(36.dp, 36.dp)
                             .align(Alignment.BottomEnd)
                     )
+                }
+            }
+            Divider(
+                color = Color.Black,
+                thickness = 1.5.dp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            )
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.BottomCenter
+            ){
+                Column (
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 5.dp)
+                ){
+                    Text(text = "", modifier = Modifier.align(Alignment.CenterHorizontally))
+                    Spacer(modifier = Modifier.weight(4f))
+                    EvolutionBar()
+                    Spacer(modifier = Modifier.weight(1f))
                 }
             }
             Divider(
