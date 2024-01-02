@@ -1,4 +1,4 @@
-package com.example.pokedex.Presentation.UserInterface
+package com.example.pokedex.ui.screens
 
 import android.content.Intent
 import android.os.Bundle
@@ -22,20 +22,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.pokedex.MainActivity
+import com.example.pokedex.ui.activities.MainActivity
 import com.example.pokedex.R
 
 
 
-class FilterPage : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-        setContent {
-            FilterPageContent()
-        }
-    }
-}
 @Composable
 fun FilterPageContent() {
     var selectedGeneration by remember { mutableStateOf(-1) }

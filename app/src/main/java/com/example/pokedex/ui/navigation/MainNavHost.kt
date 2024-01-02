@@ -1,4 +1,4 @@
-package com.example.pokedex.navigation
+package com.example.pokedex.ui.navigation
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -6,26 +6,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.example.pokedex.ShowcasePage
+import com.example.pokedex.ui.screens.ShowcasePage
 
-import com.example.pokedex.Presentation.UserInterface.BottomBar
-import com.example.pokedex.Presentation.UserInterface.Favorites
-import com.example.pokedex.Presentation.UserInterface.FilterPage
-import com.example.pokedex.Presentation.UserInterface.FilterPageContent
-import com.example.pokedex.Presentation.UserInterface.homePage
-import com.example.pokedex.Presentation.UserInterface.SearchPageFun
+import com.example.pokedex.ui.screens.BottomBar
+import com.example.pokedex.ui.screens.Favorites
+import com.example.pokedex.ui.screens.FilterPageContent
+import com.example.pokedex.ui.screens.homePage
+import com.example.pokedex.ui.screens.SearchPageFun
+import com.example.pokedex.utils.Route
 
-import com.example.pokedex.viweModel.searchPageViewModel
+import com.example.pokedex.viweModel.SearchPageViewModel
 
 
 @Composable
 fun MainNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
-    val viewModel = viewModel<searchPageViewModel>()
+    val viewModel = viewModel<SearchPageViewModel>()
 
     NavHost(
         navController = navController,

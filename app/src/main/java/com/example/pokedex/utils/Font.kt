@@ -1,4 +1,4 @@
-package com.example.pokedex.Presentation.theme
+package com.example.pokedex.utils
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily

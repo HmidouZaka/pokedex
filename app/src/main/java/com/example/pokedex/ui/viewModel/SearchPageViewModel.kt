@@ -1,12 +1,12 @@
 package com.example.pokedex.viweModel
 
 import androidx.lifecycle.ViewModel
-import com.example.pokedex.Data.Pokemon
-import com.example.pokedex.PokemonObject
+import com.example.pokedex.model.Pokemon
+import com.example.pokedex.utils.PokemonObject
 
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 
-class searchPageViewModel : ViewModel() {
+object SearchPageViewModel : ViewModel() {
     private var selectedPokemon: Pokemon? = null
     var PokemonsFave = PokemonObject.faveList
 

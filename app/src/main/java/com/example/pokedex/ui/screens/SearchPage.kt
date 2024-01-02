@@ -1,4 +1,4 @@
-package com.example.pokedex.Presentation.UserInterface
+package com.example.pokedex.ui.screens
 
 import android.content.Intent
 import androidx.compose.foundation.background
@@ -43,16 +43,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import com.example.pokedex.MainActivity
-import com.example.pokedex.Data.Pokemon
-import com.example.pokedex.navigation.Route
+import com.example.pokedex.ui.activities.MainActivity
+import com.example.pokedex.model.Pokemon
+import com.example.pokedex.utils.Route
 
-import com.example.pokedex.viweModel.searchPageViewModel
+import com.example.pokedex.viweModel.SearchPageViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun SearchPageFun(navController: NavHostController, viewModel: searchPageViewModel) {
+fun SearchPageFun(navController: NavHostController, viewModel: SearchPageViewModel) {
     var name by remember { mutableStateOf("") }
     var Pokemons= viewModel.getMockData(false)
     val context = LocalContext.current // Get the current context
@@ -116,7 +116,7 @@ fun SearchPageFun(navController: NavHostController, viewModel: searchPageViewMod
 
 @Composable
 fun Pokemonlists(pokeList:List<Pokemon>,
-                 navController: NavHostController, viewModel: searchPageViewModel
+                 navController: NavHostController, viewModel: SearchPageViewModel
 ) {
 
 
