@@ -8,7 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.pokedex.ui.theme.PokedexTheme
+import com.example.pokedex.Data.Pokemon
+import com.example.pokedex.Presentation.theme.PokedexTheme
 import kotlinx.coroutines.*
 import com.example.pokedex.navigation.navStart
 import com.example.pokedex.viweModel.ApiViewModel
@@ -23,7 +24,6 @@ object PokemonObject{
 class MainActivity : ComponentActivity() {
 
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ApiViewModel().addPokemon(1,1470,true,true)

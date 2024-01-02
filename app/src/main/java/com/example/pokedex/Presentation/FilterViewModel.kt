@@ -1,9 +1,9 @@
-package com.example.pokedex
+package com.example.pokedex.Presentation
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.pokedex.UserInterface.SortOption
+import com.example.pokedex.Presentation.UserInterface.SortOption
 
 // ViewModel
 class FilterViewModel : ViewModel() {

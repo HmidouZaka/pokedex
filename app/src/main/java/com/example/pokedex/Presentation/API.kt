@@ -1,11 +1,8 @@
 package com.example.pokedex.viweModel
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
-import androidx.compose.ui.text.capitalize
 import androidx.lifecycle.*
-import com.example.pokedex.Pokemon
+import com.example.pokedex.Data.Pokemon
 import com.example.pokedex.PokemonObject
 import kotlinx.coroutines.*
 import java.net.URL
@@ -15,7 +12,6 @@ class ApiViewModel: ViewModel() {
 //    load image
     //imageView.load("https://example.com/image.jpg")
 
-  @RequiresApi(Build.VERSION_CODES.TIRAMISU)
   fun addPokemon(start:Int, end:Int, onlyDefaults:Boolean, cleanCopy:Boolean){
         viewModelScope.launch(Dispatchers.IO){
 //            val fileName = "json/pokemonCache.json"

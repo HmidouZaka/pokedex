@@ -1,4 +1,4 @@
-package com.example.pokedex.UserInterface
+package com.example.pokedex.Presentation.UserInterface
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -46,8 +46,8 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
-import com.example.pokedex.Font
-import com.example.pokedex.Pokemon
+import com.example.pokedex.Presentation.theme.Font
+import com.example.pokedex.Data.Pokemon
 import com.example.pokedex.R
 import com.example.pokedex.navigation.Route
 import com.example.pokedex.viweModel.searchPageViewModel
@@ -111,15 +111,16 @@ fun PokemonList(navController: NavHostController,viewModel: searchPageViewModel,
         items(pokemons.chunked(2)) { chunkedPokemons ->
             Row(
                 modifier = Modifier
+                    .height(178.dp)
                     .fillMaxWidth()
-                    .padding(0.dp),
+                    .padding(0.dp)
+                ,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 chunkedPokemons.forEach { pokemon ->
                     pokemonBox(
                         modifier = Modifier
-                            .width(205.dp)
-                            .height(178.dp)
+                            .weight(1f)
                             .background(
                                 color = Color(0xFFE0E0E0),
                                 shape = RoundedCornerShape(size = 10.dp)
@@ -161,7 +162,7 @@ val types = listOf(
 
 @Composable
 fun pokemonBox(modifier: Modifier,
-               navController: NavHostController,pokemon: Pokemon,viewModel: searchPageViewModel) {
+               navController: NavHostController, pokemon: Pokemon, viewModel: searchPageViewModel) {
     val context = LocalContext.current
     Box(
         modifier = modifier
@@ -238,7 +239,7 @@ Row() {
 }
 
 @Composable
-fun pokemonPictureAndLogo(modifier: Modifier,pokemon: Pokemon,viewModel: searchPageViewModel){
+fun pokemonPictureAndLogo(modifier: Modifier, pokemon: Pokemon, viewModel: searchPageViewModel){
     Box(
         modifier=modifier
 

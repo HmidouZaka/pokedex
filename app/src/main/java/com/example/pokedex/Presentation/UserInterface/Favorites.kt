@@ -1,4 +1,4 @@
-package com.example.pokedex.UserInterface
+package com.example.pokedex.Presentation.UserInterface
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.example.pokedex.Presentation.UserInterface.EvolutionBar
 import com.example.pokedex.viweModel.searchPageViewModel
 
     @Composable

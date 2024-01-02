@@ -1,4 +1,4 @@
-package com.example.pokedex.UserInterface
+package com.example.pokedex.Presentation.UserInterface
 
 import android.content.Intent
 import android.os.Bundle

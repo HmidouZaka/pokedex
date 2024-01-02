@@ -13,12 +13,12 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.pokedex.ShowcasePage
 
-import com.example.pokedex.UserInterface.BottomBar
-import com.example.pokedex.UserInterface.Favorites
-import com.example.pokedex.UserInterface.FilterPage
-import com.example.pokedex.UserInterface.FilterPageContent
-import com.example.pokedex.UserInterface.homePage
-import com.example.pokedex.UserInterface.SearchPageFun
+import com.example.pokedex.Presentation.UserInterface.BottomBar
+import com.example.pokedex.Presentation.UserInterface.Favorites
+import com.example.pokedex.Presentation.UserInterface.FilterPage
+import com.example.pokedex.Presentation.UserInterface.FilterPageContent
+import com.example.pokedex.Presentation.UserInterface.homePage
+import com.example.pokedex.Presentation.UserInterface.SearchPageFun
 
 import com.example.pokedex.viweModel.searchPageViewModel
 
